@@ -77,12 +77,11 @@ export class CasaComponent implements OnInit, AfterViewInit {
     });
     this.tiles.addTo(this.mapa);
   }
-  
+
   ///////////////////Fin Geras mapa
 
   constructor(private casaService:CasasService, private rutaActiva:ActivatedRoute){
     this.usuario = JSON.parse(sessionStorage.getItem('usr')!);
-    console.log(this.usuario);
     const routeParams = this.rutaActiva.snapshot.params;
     this.casaService.casas.forEach(casita => {
       if(casita.nombre === this.rutaActiva.snapshot.params['casa']){
@@ -122,7 +121,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
     }
   }
 
- 
+
 
   ngOnInit(){
     this.actualizarFechasDisponibles();
@@ -177,8 +176,8 @@ export class CasaComponent implements OnInit, AfterViewInit {
         horaSeleccionadaInicio = this.reserva.value.fecha[0].toTimeString();
         horaSeleccionadaFinal = this.reserva.value.fecha[1].toTimeString();
       }
-  
-      
+
+
       //NOTA: hay que hacer dinámica la seleccion de fechas y comprobar que sea correcto
       let infoCasas:casasData[];
       let casaAgregar:casasData = {
@@ -191,7 +190,6 @@ export class CasaComponent implements OnInit, AfterViewInit {
         horaInicio: horaSeleccionadaInicio,
         horaFinal: horaSeleccionadaFinal
       };
-      console.log(casaAgregar);
       if(localStorage.getItem("casasData") === null){
         infoCasas = [];
         infoCasas.push(casaAgregar);
@@ -210,7 +208,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
             }
           }
         });
-  
+
         if(band){
           Swal.fire('Error','Ha ocurrido un error al verificar las fechas, revise que su seleccion este habilitada','error');
         }else{
@@ -223,7 +221,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
     }else{
       Swal.fire('Inicio Sesión','Debe iniciar sesión para registrar una reserva','error');
     }
-    
+
   }
   verificarUsr():boolean{
     let sessionData = sessionStorage.getItem('usr')
