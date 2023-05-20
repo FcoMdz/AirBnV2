@@ -4,21 +4,21 @@
     <form [formGroup]="sesion" (ngSubmit)="login()">
       <div class="user-details row">
         <div class="input-box col-6 mx-2">
-          <label class="form-label">Nombre de usuario</label>
+          <label class="form-label">Correo electrónico</label>
           <input type="text" class="form-control" formControlName="usrNameLog"
-            placeholder="Ingresa tu nombre de usuario">
-  
+            placeholder="Ingresa tu correo electrónico">
+
           <div class="alert alert-danger mt-2" [hidden]="usrNameLog?.pristine || usrNameLog?.valid">
             <span *ngIf="usrNameLog?.errors?.['required']">
               El nombre de usuario es requerido
             </span>
           </div>
         </div>
-  
+
         <div class="input-box col-6 mx-2">
           <label class="form-label">Contraseña</label>
-          <input type="password" class="form-control" formControlName="passwdLog" placeholder="Escribe una contraseña">
-  
+          <input type="password" class="form-control" formControlName="passwdLog" placeholder="Ingresa tu contraseña">
+
           <div class="alert alert-danger mt-2" [hidden]="passwdLog?.pristine || passwdLog?.valid">
             <span *ngIf="passwdLog?.errors?.['required']">
               La contraseña es requerida
@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      
+
       <div id="inicio" [ngClass]="(sesion.invalid || !(checkPsswd())) ? 'deshabilitado':'habilitado'"
       class="button">
       <input type="submit" value="Iniciar Sesión">
@@ -35,7 +35,7 @@
     </form>
 
     <hr>
-    
+
     <div class="title">Registro</div>
     <div class="content">
       <form [formGroup]="usuario" (ngSubmit)="procesar()">

@@ -1,14 +1,18 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { getAuth, createUserWithEmailAndPassword, Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { addDoc, collection, doc, getFirestore, setDoc } from '@angular/fire/firestore';
+import { getDoc } from '@firebase/firestore';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css'],
 })
+
 export class RegistroComponent {
-  data!: any;
+
   usuario = new FormGroup({
     nombre: new FormControl('', [
       Validators.required,
@@ -30,14 +34,117 @@ export class RegistroComponent {
     passwdLog: new FormControl('', [Validators.required]),
   });
   passwdConf = new FormControl('', Validators.required);
-
-  usuariosFromLS: any[] = [];
-
-  usuariosObj: Object[] = [];
-
-  localStorageData: any = '';
-
   fondo = 'linear-gradient(135deg, #71b7e6, #9b59b6)';
+
+
+
+  procesar(){
+    if (document.getElementById('registro')?.classList.contains('habilitado')) {
+      const auth:Auth = getAuth();
+      let email:string = this.usuario.value.email || "";
+      let passwd: string = this.usuario.value.passwd || "";
+      if((email || passwd) != ""){
+        createUserWithEmailAndPassword(auth, email, passwd)
+          .then(async (userCredential)=>{
+            const user = userCredential.user;
+            const db = getFirestore();
+            try{
+              const docRef = await setDoc(doc(db, 'usuarios', user.uid),{
+                nombe: this.usuario.value.nombre,
+                email: this.usuario.value.email,
+                usrName: this.usuario.value.usrName,
+                telefono: this.usuario.value.telefono,
+                gender: this.usuario.value.gender,
+              }).then(()=>{
+                Swal.fire(
+                  'Registro',
+                  'Se ha registrado correctamente',
+                  'success'
+                );
+                this.clearForm();
+              });
+            }catch(error){
+              Swal.fire(
+                'Registro',
+                'Ha ocurrido un error: ' + error,
+                'error'
+              );
+            }
+          })
+          .catch((error) => {
+            Swal.fire(
+              'Registro',
+              'Ha ocurrido un error: ' + error.message,
+              'error');
+          });
+      }else{
+        Swal.fire('Registro', 'Verifique que los datos estén completos', 'error');
+      }
+    } else {
+      Swal.fire('Registro', 'Verifique que los datos estén completos', 'error');
+    }
+  }
+
+  login(){
+    if (document.getElementById('inicio')?.classList.contains('habilitado')) {
+      const auth:Auth = getAuth();
+      let email:string = this.sesion.value.usrNameLog || "";
+      let passwd: string = this.sesion.value.passwdLog || "";
+      if((email || passwd) != ""){
+        signInWithEmailAndPassword(auth, email, passwd)
+          .then(async (userCredential)=>{
+            const user = userCredential.user;
+            const db = getFirestore();
+            try{
+              const docRef = await getDoc(doc(db, 'usuarios', user.uid))
+              .then(()=>{
+                Swal.fire(
+                  'Inicio de sesión',
+                  'Se ha iniciado correctamente',
+                  'success'
+                );
+                this.clearSesion();
+              });
+            }catch(error){
+              Swal.fire(
+                'Inicio de sesión',
+                'Ha ocurrido un error: ' + error,
+                'error');
+            }
+          })
+          .catch((error) => {
+            Swal.fire(
+              'Inicio de sesión',
+              'Ha ocurrido un error: ' + error.message,
+              'error');
+          });
+      }else{
+        Swal.fire('Inicio de sesión', 'Verifique que los datos estén completos', 'error');
+      }
+
+    }else {
+      Swal.fire('Inicio de sesión', 'Verifique que los datos estén completos', 'error');
+    }
+  }
+
+  clearForm(){
+    this.usuario.reset({
+      nombre: "",
+      email: "",
+      usrName: "",
+      telefono: "",
+      gender: "",
+      passwd: ""
+    });
+    this.passwdConf.reset('');
+  }
+
+  clearSesion(){
+    this.sesion.reset({
+      usrNameLog: "",
+      passwdLog: ""
+    })
+  }
 
   public get name() {
     return this.usuario.get('nombre');
@@ -70,6 +177,20 @@ export class RegistroComponent {
   public get usrNameLog() {
     return this.sesion.get('usrNameLog');
   }
+  checkPsswd(): boolean {
+    if (this.usuario.get('passwd')?.value === this.passwdConf.value) {
+      return true;
+    }
+    return false;
+  }
+
+  /* //Configuracion para almacenamiento local
+
+  usuariosFromLS: any[] = [];
+  usuariosObj: Object[] = [];
+  localStorageData: any = '';
+  data!: any;
+
 
   procesar() {
     this.usuariosFromLS = [];
@@ -129,17 +250,14 @@ export class RegistroComponent {
     }else {
       Swal.fire('Inicio de sesión', 'Verifique que los datos estén completos', 'error');
     }
-    /*console.log(this.data.usrName);
-    console.log(this.sesion.value['usrNameLog']);
-    if(this.data.usrName === this.sesion.value['usrNameLog'] && this.data.passwd === this.sesion.value['passwdLog']){
-      sessionStorage.setItem('usr',JSON.stringify(this.sesion.value['usrNameLog']));
-    }*/
   }
 
-  checkPsswd(): boolean {
-    if (this.usuario.get('passwd')?.value === this.passwdConf.value) {
-      return true;
-    }
-    return false;
-  }
+
+
+  */
+
+
+
+
+
 }

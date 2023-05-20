@@ -33,6 +33,8 @@ import { VideoPipe } from './video.pipe';
 import { DudasComponent } from './dudas/dudas.component';
 import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
 import { SkinsComponent } from './components/skins/skins.component';
+
+//Firebase
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
