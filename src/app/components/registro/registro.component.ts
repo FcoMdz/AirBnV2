@@ -72,7 +72,7 @@ export class RegistroComponent {
   }
 
   procesar() {
-
+    this.usuariosFromLS = [];
     if (document.getElementById('registro')?.classList.contains('habilitado')) {
       this.localStorageData = localStorage.getItem('usuarios');
       console.log(this.localStorageData);
@@ -86,10 +86,9 @@ export class RegistroComponent {
 
         localStorage.setItem('usuarios', JSON.stringify(this.usuariosFromLS));
 
-        console.log('this.usuario.value ', this.usuario.value);
-        console.log('this.usuariosFromLS ', this.usuariosFromLS);
       } else {
-        localStorage.setItem('usuarios', JSON.stringify(this.usuario.value));
+        this.usuariosFromLS.push(this.usuario.value);
+        localStorage.setItem('usuarios', JSON.stringify(this.usuariosFromLS));
       }
       Swal.fire(
         'Registro',
@@ -109,7 +108,7 @@ export class RegistroComponent {
         let band = false;
         this.data.forEach((user: any) => {
           if (
-            user.nombre === this.sesion.value['usrNameLog'] &&
+            user.usrName === this.sesion.value['usrNameLog'] &&
             user.passwd === this.sesion.value['passwdLog']
           ) {
             sessionStorage.setItem('usr', JSON.stringify(user));
