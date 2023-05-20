@@ -70,8 +70,8 @@ export class RegistroComponent {
   public get usrNameLog() {
     return this.sesion.get('usrNameLog');
   }
+
   procesar() {
-    console.log(this.usuariosFromLS);
 
     if (document.getElementById('registro')?.classList.contains('habilitado')) {
       this.localStorageData = localStorage.getItem('usuarios');
@@ -92,35 +92,43 @@ export class RegistroComponent {
         localStorage.setItem('usuarios', JSON.stringify(this.usuario.value));
       }
       Swal.fire(
-        'Registro confirmado',
+        'Registro',
         'Se ha registrado correctamente',
         'success'
       );
     } else {
-      Swal.fire('Error', 'Verifique que los datos estén completos', 'error');
+      Swal.fire('Registro', 'Verifique que los datos estén completos', 'error');
     }
   }
+
   login() {
-    this.data = localStorage.getItem('usuarios');
-    this.data = JSON.parse(this.data);
-    console.log(this.data);
-    let band = false;
-    this.data.forEach((user: any) => {
-      if (
-        user.nombre === this.sesion.value['usrNameLog'] &&
-        user.passwd === this.sesion.value['passwdLog']
-      ) {
-        sessionStorage.setItem('usr', JSON.stringify(user));
-        Swal.fire(
-          'Inicio de sesión',
-          'Se ha iniciado correctamente',
-          'success'
-        );
-        band = true;
+    if (document.getElementById('inicio')?.classList.contains('habilitado')) {
+      this.data = localStorage.getItem('usuarios');
+      if (this.data != null) {
+        this.data = JSON.parse(this.data);
+        let band = false;
+        this.data.forEach((user: any) => {
+          if (
+            user.nombre === this.sesion.value['usrNameLog'] &&
+            user.passwd === this.sesion.value['passwdLog']
+          ) {
+            sessionStorage.setItem('usr', JSON.stringify(user));
+            Swal.fire(
+              'Inicio de sesión',
+              'Se ha iniciado correctamente',
+              'success'
+            );
+            band = true;
+          }
+        });
+        if (!band) {
+          Swal.fire('Inicio de sesión', 'Revise sus datos', 'error');
+        }
+      }else{
+        Swal.fire('Inicio de sesión', 'No se ha podido recuperar la base de datos', 'error');
       }
-    });
-    if (!band) {
-      Swal.fire('Inicio de sesión', 'Revise sus datos', 'error');
+    }else {
+      Swal.fire('Inicio de sesión', 'Verifique que los datos estén completos', 'error');
     }
     /*console.log(this.data.usrName);
     console.log(this.sesion.value['usrNameLog']);

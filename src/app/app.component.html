@@ -4,7 +4,7 @@
       <a class="navbar-brand" routerLink="home">
         <img src="../assets/Img/777.png" alt="" width="60" class="mb-3" class="nav777">
       </a>
-      
+
       <button class="navbar-toggler btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -13,7 +13,7 @@
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="home">AirbnV</a>
           </li>
-          
+
           <!--<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
@@ -25,7 +25,7 @@
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>-->
-          
+
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" routerLink="reservaciones">Reservaciones</a>
           </li>
@@ -44,17 +44,19 @@
           <button routerLink="busqueda/{{ busqueda }}" class="btn btn-outline-light" type="submit">Search</button>
         </form>
         <div>
-          <button class="btn btn-outline-info me-2 me-md-0 ms-md-2 mt-2 mt-md-0" routerLink="registro">Registrarse</button>
+          <button class="btn btn-outline-info me-2 me-md-0 ms-lg-2 mt-2 mt-lg-0" routerLink="registro">Registrarse</button>
         </div>
       </div>
     </div>
   </nav>
+
   <div class="container cuerpo">
     <div class="row my-5">
       <router-outlet></router-outlet>
     </div>
   </div>
-  <footer data-bs-theme="dark" class="navbar navbar-fixed-bottom"> 
+
+  <footer data-bs-theme="dark" class="navbar navbar-fixed-bottom">
     <div class="container py-5">
       <div class="row py-4 justify-content-center">
         <div class="col-lg-4 col-md-6 mb-4 mb-lg-0"><img src="../assets/Img/777.png" alt="" width="180" class="mb-3">
@@ -87,7 +89,7 @@
         </div>-->
       </div>
     </div>
-  
-  
+
+
   </footer>
 </div>
