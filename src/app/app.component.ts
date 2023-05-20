@@ -35,9 +35,6 @@ export class AppComponent implements OnInit{
     });
     const auth:Auth = getAuth();
     let btnRegistro = document.getElementById("inicioSesion");
-    if(btnRegistro){
-      console.log("hola");
-    }
     onAuthStateChanged(auth, (user) => {
       if(user && btnRegistro){
         btnRegistro.innerHTML = "Cerrar sesión";
