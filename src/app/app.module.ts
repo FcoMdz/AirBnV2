@@ -33,6 +33,12 @@ import { VideoPipe } from './video.pipe';
 import { DudasComponent } from './dudas/dudas.component';
 import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
 import { SkinsComponent } from './components/skins/skins.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideStorage,getStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -65,9 +71,14 @@ import { SkinsComponent } from './components/skins/skins.component';
     FormsModule,
     ReactiveFormsModule,
     LeafletModule,
-    HttpClientModule
+    HttpClientModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAnalytics(() => getAnalytics()),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage())
   ],
-  providers: [CasasService],
+  providers: [CasasService, ScreenTrackingService,UserTrackingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
