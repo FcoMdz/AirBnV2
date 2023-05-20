@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { getAuth, createUserWithEmailAndPassword, Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { addDoc, collection, doc, getFirestore, setDoc } from '@angular/fire/firestore';
 import { getDoc } from '@firebase/firestore';
+import { user } from 'src/app/services/local-storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -12,6 +14,8 @@ import { getDoc } from '@firebase/firestore';
 })
 
 export class RegistroComponent {
+
+  datosUsuario!:user;
 
   usuario = new FormGroup({
     nombre: new FormControl('', [
@@ -33,35 +37,43 @@ export class RegistroComponent {
     usrNameLog: new FormControl('', [Validators.required]),
     passwdLog: new FormControl('', [Validators.required]),
   });
+
   passwdConf = new FormControl('', Validators.required);
   fondo = 'linear-gradient(135deg, #71b7e6, #9b59b6)';
 
+  auth:Auth = getAuth();
+
+  constructor(private router: Router, private route:ActivatedRoute){
+
+  }
 
 
   procesar(){
     if (document.getElementById('registro')?.classList.contains('habilitado')) {
-      const auth:Auth = getAuth();
       let email:string = this.usuario.value.email || "";
       let passwd: string = this.usuario.value.passwd || "";
       if((email || passwd) != ""){
-        createUserWithEmailAndPassword(auth, email, passwd)
+        createUserWithEmailAndPassword(this.auth, email, passwd)
           .then(async (userCredential)=>{
             const user = userCredential.user;
             const db = getFirestore();
             try{
               const docRef = await setDoc(doc(db, 'usuarios', user.uid),{
-                nombe: this.usuario.value.nombre,
+                nombre: this.usuario.value.nombre,
                 email: this.usuario.value.email,
                 usrName: this.usuario.value.usrName,
                 telefono: this.usuario.value.telefono,
                 gender: this.usuario.value.gender,
               }).then(()=>{
+                this.clearForm();
                 Swal.fire(
                   'Registro',
-                  'Se ha registrado correctamente',
+                  'Se ha registrado correctamente, ' + this.usuario.value.nombre,
                   'success'
+                ).then(()=>{
+                    this.router.navigate(['home']);
+                  }
                 );
-                this.clearForm();
               });
             }catch(error){
               Swal.fire(
@@ -87,23 +99,41 @@ export class RegistroComponent {
 
   login(){
     if (document.getElementById('inicio')?.classList.contains('habilitado')) {
-      const auth:Auth = getAuth();
       let email:string = this.sesion.value.usrNameLog || "";
       let passwd: string = this.sesion.value.passwdLog || "";
       if((email || passwd) != ""){
-        signInWithEmailAndPassword(auth, email, passwd)
+        signInWithEmailAndPassword(this.auth, email, passwd)
           .then(async (userCredential)=>{
             const user = userCredential.user;
             const db = getFirestore();
             try{
-              const docRef = await getDoc(doc(db, 'usuarios', user.uid))
-              .then(()=>{
-                Swal.fire(
-                  'Inicio de sesión',
-                  'Se ha iniciado correctamente',
-                  'success'
-                );
-                this.clearSesion();
+              await getDoc(doc(db, 'usuarios', user.uid))
+              .then((docRef)=>{
+                if(docRef.exists()){
+                  let datos = docRef.data();
+                  this.datosUsuario = {
+                    uid: user.uid,
+                    nombre: datos["nombre"],
+                    email: datos["email"],
+                    gender: datos["gender"],
+                    telefono: datos["telefono"],
+                    usrName: datos["usrName"]
+                  }
+                  this.clearSesion();
+                  Swal.fire(
+                    'Inicio de sesión',
+                    'Se ha iniciado correctamente, ' + this.datosUsuario.nombre,
+                    'success'
+                  ).then(()=>{
+                      this.router.navigate(['home']);
+                    }
+                  );
+                }else{
+                  Swal.fire(
+                    'Inicio de sesión',
+                    'No se ha encontrado el documento del usuario',
+                    'error');
+                }
               });
             }catch(error){
               Swal.fire(
@@ -255,9 +285,5 @@ export class RegistroComponent {
 
 
   */
-
-
-
-
 
 }
