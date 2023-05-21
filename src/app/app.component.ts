@@ -54,7 +54,7 @@ export class AppComponent implements OnInit{
           });
         }
       }else if(btnRegistro){
-        btnRegistro.innerHTML = "Registarse / Inicar Sesión";
+        btnRegistro.innerHTML = "Registarse / Iniciar Sesión";
         btnRegistro.onclick = ()=>{};
       }
     });

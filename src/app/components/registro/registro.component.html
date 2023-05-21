@@ -27,9 +27,8 @@
         </div>
       </div>
 
-      <div id="inicio" [ngClass]="(sesion.invalid || !(checkPsswd())) ? 'deshabilitado':'habilitado'"
-      class="button">
-      <input type="submit" value="Iniciar Sesión">
+      <div id="inicio" [ngClass]="(sesion.invalid || !(checkPsswd())) ? 'deshabilitado':'habilitado'" class="button">
+        <button id="inputIniciar" type="submit">Iniciar Sesión</button>
       </div>
 
     </form>
@@ -150,7 +149,7 @@
         </div>
         <div id="registro" [ngClass]="(usuario.invalid || !(checkPsswd())) ? 'deshabilitado':'habilitado'"
           class="button">
-          <input type="submit" value="Registrar">
+          <button type="submit" id="inputRegistro">Registrar</button>
         </div>
       </form>
     </div>

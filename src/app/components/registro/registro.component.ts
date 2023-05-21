@@ -53,6 +53,14 @@ export class RegistroComponent {
       let email:string = this.usuario.value.email || "";
       let passwd: string = this.usuario.value.passwd || "";
       if((email || passwd) != ""){
+        let button:HTMLInputElement = <HTMLInputElement>document.getElementById("inputRegistro");
+        if(button){
+          button.innerHTML = `
+            <span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
+            Registrando...
+          `;
+          button.setAttribute("disabled","true");
+        }
         createUserWithEmailAndPassword(this.auth, email, passwd)
           .then(async (userCredential)=>{
             const user = userCredential.user;
@@ -65,12 +73,13 @@ export class RegistroComponent {
                 telefono: this.usuario.value.telefono,
                 gender: this.usuario.value.gender,
               }).then(()=>{
-                this.clearForm();
                 Swal.fire(
                   'Registro',
                   'Se ha registrado correctamente, ' + this.usuario.value.nombre,
                   'success'
                 ).then(()=>{
+                    this.clearForm();
+                    this.reactivarBoton(button, "Registrar");
                     this.router.navigate(['home']);
                   }
                 );
@@ -80,14 +89,18 @@ export class RegistroComponent {
                 'Registro',
                 'Ha ocurrido un error: ' + error,
                 'error'
-              );
+              ).then(()=>{
+                this.reactivarBoton(button, "Registrar");
+              });
             }
           })
           .catch((error) => {
             Swal.fire(
               'Registro',
               'Ha ocurrido un error: ' + error.message,
-              'error');
+              'error').then(()=>{
+                this.reactivarBoton(button, "Registrar");
+              });
           });
       }else{
         Swal.fire('Registro', 'Verifique que los datos estén completos', 'error');
@@ -102,6 +115,15 @@ export class RegistroComponent {
       let email:string = this.sesion.value.usrNameLog || "";
       let passwd: string = this.sesion.value.passwdLog || "";
       if((email || passwd) != ""){
+        let button:HTMLInputElement = <HTMLInputElement>document.getElementById("inputIniciar");
+        if(button){
+          button.innerHTML = `
+            <span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
+            Iniciando sesión...
+          `;
+          button.setAttribute("disabled","true");
+        }
+        console.log(button.innerHTML);
         signInWithEmailAndPassword(this.auth, email, passwd)
           .then(async (userCredential)=>{
             const user = userCredential.user;
@@ -119,12 +141,13 @@ export class RegistroComponent {
                     telefono: datos["telefono"],
                     usrName: datos["usrName"]
                   }
-                  this.clearSesion();
                   Swal.fire(
                     'Inicio de sesión',
                     'Se ha iniciado correctamente, ' + this.datosUsuario.nombre,
                     'success'
                   ).then(()=>{
+                      this.clearSesion();
+                      this.reactivarBoton(button, "Iniciar Sesión");
                       this.router.navigate(['home']);
                     }
                   );
@@ -132,21 +155,28 @@ export class RegistroComponent {
                   Swal.fire(
                     'Inicio de sesión',
                     'No se ha encontrado el documento del usuario',
-                    'error');
+                    'error').then(()=>{
+                      this.auth.signOut();
+                      this.reactivarBoton(button, "Iniciar Sesión");
+                    });
                 }
               });
             }catch(error){
               Swal.fire(
                 'Inicio de sesión',
                 'Ha ocurrido un error: ' + error,
-                'error');
+                'error').then(()=>{
+                  this.reactivarBoton(button, "Iniciar Sesión");
+                });
             }
           })
           .catch((error) => {
             Swal.fire(
               'Inicio de sesión',
               'Ha ocurrido un error: ' + error.message,
-              'error');
+              'error').then(()=>{
+                this.reactivarBoton(button, "Iniciar Sesión");
+              });
           });
       }else{
         Swal.fire('Inicio de sesión', 'Verifique que los datos estén completos', 'error');
@@ -155,6 +185,15 @@ export class RegistroComponent {
     }else {
       Swal.fire('Inicio de sesión', 'Verifique que los datos estén completos', 'error');
     }
+  }
+
+  reactivarBoton(button:HTMLInputElement, text:string){
+    if(button){
+      button.innerHTML = `
+        ${text}
+      `;
+    }
+    button.removeAttribute("disabled");
   }
 
   clearForm(){

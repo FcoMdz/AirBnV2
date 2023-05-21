@@ -120,7 +120,7 @@ form .button {
   margin: 35px 0
 }
 
-form .habilitado input {
+form .habilitado button {
   height: 100%;
   width: 100%;
   border-radius: 5px;
@@ -134,11 +134,11 @@ form .habilitado input {
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
 
-form .habilitado input:hover {
+form .habilitado button:hover {
   background: linear-gradient(-135deg, #71b7e6, #9b59b6);
 }
 
-form .deshabilitado input {
+form .deshabilitado button {
   height: 100%;
   width: 100%;
   border-radius: 5px;
