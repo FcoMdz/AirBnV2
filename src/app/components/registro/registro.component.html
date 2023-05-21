@@ -92,11 +92,8 @@
               <span *ngIf="telefono?.errors?.['required']">
                 El telefono es requerido
               </span>
-              <span *ngIf="telefono?.errors?.['minlength'] || telefono?.errors?.['maxlength']">
-                El numero de telefono debe de ser de 10 digitos
-              </span>
-              <span *ngIf="telefono?.errors?.['pattern']">
-                Solo digitos del 0 al 9 son validos
+              <span *ngIf="numberphone?.errors?.['wrongNumber']">
+                Introduzca el numero en el formato: [+][Codigo del país][Número de telefono]
               </span>
             </div>
 
@@ -153,5 +150,30 @@
         </div>
       </form>
     </div>
+
+    <hr>
+
+    <div class="title">Iniciar Sesión Con Telefono</div>
+    <form [formGroup]="phone" (ngSubmit)="loginwphone()">
+      <div class="user-details row">
+        <div class="input-box col-6 mx-2">
+          <label class="form-label">Número de telefono</label>
+          <input type="text" class="form-control" formControlName="numberphone"
+            placeholder="Ingresa tu número de telefono">
+
+            <div class="alert alert-danger mt-2" [hidden]="numberphone?.pristine || numberphone?.valid">
+              <span *ngIf="numberphone?.errors?.['required']">
+                El telefono es requerido
+              </span>
+              <span *ngIf="numberphone?.errors?.['wrongNumber']">
+                Introduzca el numero en el formato: [+][Codigo del país][Número de telefono]
+              </span>
+            </div>
+        </div>
+      </div>
+      <div id="iniciowphone" [ngClass]="phone.invalid ? 'deshabilitado':'habilitado'" class="button">
+        <button id="inputIniciarwphone" type="submit">Iniciar Sesión</button>
+      </div>
+    </form>
   </div>
 </div>
