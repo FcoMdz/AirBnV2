@@ -1,11 +1,41 @@
 import { Injectable } from '@angular/core';
+import { getFirestore, getDocs, Firestore, collection, query, where, setDoc, CollectionReference, doc, addDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CasasService {
+
+  db:Firestore = getFirestore();
+  collection:CollectionReference = collection(this.db,'casas');
+
+  async consultaFechasCasas(idCasa:number){
+    let referencia = collection(this.collection, idCasa.toString(), 'apartado');
+    let apartados = await getDocs(referencia);
+    let fechas:[Date[]] = [[]];
+    apartados.forEach((apartado:any) => {
+      let data = apartado.data();
+      let rangoFecha = [new Date(data.fechaInicio), new Date(data.fechaFinal)];
+      fechas.push(rangoFecha);
+    })
+    fechas.shift();
+    return fechas;
+  }
+
+  async ingresarFechasCasas(idCasa:number, fechaInicio:Date, fechaFinal:Date, uid:string, cantPersonas:number, precio:number){
+    let data = {
+      fechaInicio: fechaInicio.toISOString(),
+      fechaFinal: fechaFinal.toISOString(),
+      uid: uid,
+      cantPersonas: cantPersonas,
+      precio: precio
+    }
+    let referencia = collection(this.collection, idCasa.toString(), 'apartado');
+    await addDoc(referencia, data);
+  }
+
   casas:Casa [] = [
-    
+
     { id: 1,
       nombre: "Casa 1",
       precio:100000,
@@ -97,7 +127,7 @@ export class CasasService {
                 "casa6.2.jpg",
                 "casa6.3.jpg",
                 "casa6.4.jpg",
-                "casa6.5.jpg",],                
+                "casa6.5.jpg",],
       carpetaImg:"casa6",
       descripcion: "Es una casa de prueba",
       categoria: "Casa grande",
@@ -167,7 +197,7 @@ export class CasasService {
   ];
   constructor() { }
 
- 
+
 }
 export interface Casa {
   id:number;

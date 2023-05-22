@@ -232,7 +232,6 @@ export class RegistroComponent implements OnInit {
             }
           })
           .catch((error) => {
-            console.log(error);
             Swal.fire(
               'Registro',
               'Ha ocurrido un error: ' + error.message,

@@ -6,7 +6,6 @@ import { Casa, CasasService } from 'src/app/services/casas.service';
 import { LocalStorageService, casasData } from 'src/app/services/local-storage.service';
 import Swal from 'sweetalert2';
 import * as L from 'leaflet';
-import { getFirestore, collection } from '@angular/fire/firestore';
 import { Auth, getAuth } from '@angular/fire/auth';
 @Component({
   selector: 'app-casa',
@@ -73,11 +72,27 @@ export class CasaComponent implements OnInit, AfterViewInit {
       }
 
     });
+    this.actualizarFechasDisponibles();
   }
 
   actualizarFechasDisponibles():void{
     let infoCasas:casasData[];
-    if(localStorage.getItem("casasData") != null){
+    this.casaService.consultaFechasCasas(this.casa.id).then((fechas) =>{
+      let fechasDeshabilitar: Date[] = [];
+      fechas.forEach((rangoFechas)=>{
+        let fechaInicio = new Date(rangoFechas[0]);
+        let fechaFinal = new Date(rangoFechas[1]);
+        let fechaAux = new Date(fechaInicio.toDateString());
+        fechaFinal.setTime(fechaFinal.getTime() + (fechaInicio.getTime()- fechaAux.getTime() ));
+        while(fechaInicio <= fechaFinal){
+          fechasDeshabilitar.push(new Date(fechaInicio));
+          fechaInicio.setDate(fechaInicio.getDate()+1);
+        }
+      });
+      this.diasdesh = this.diasdesh.concat(fechasDeshabilitar);
+    }).catch((error)=>{
+    })
+    /*if(localStorage.getItem("casasData") != null){
       infoCasas = JSON.parse(localStorage.getItem('casasData') || "{}");
       infoCasas.forEach(apartado => {
         if(apartado.id == this.casa.id){
@@ -91,12 +106,11 @@ export class CasaComponent implements OnInit, AfterViewInit {
           this.diasdesh = this.diasdesh.concat(fechas);
         }
       });
-    }
+    }*/
   }
 
   ngOnInit(){
-    this.actualizarFechasDisponibles();
-    this.fecha = this.fechaActual.toLocaleString( );
+    this.fecha = this.fechaActual.toLocaleString();
     this.casaService.casas.forEach(casita => {
       if(casita.nombre === this.rutaActiva.snapshot.params['casa']){
         this.casa = {
@@ -128,26 +142,49 @@ export class CasaComponent implements OnInit, AfterViewInit {
     }
   }
 
-  registrarReserva():void{
+  async registrarReserva():Promise<void>{
     //Aqui se obtienen las fechas que selecciono el usuario
-    if(this.verificarUsr()){
-      let fechaSeleccionadaInicio:string;
-      let fechaSeleccionadaFinal:string;
-      let horaSeleccionadaInicio:string;
-      let horaSeleccionadaFinal:string;
+    if(this.auth.currentUser){
+      let fechaSeleccionadaInicio:Date;
+      let fechaSeleccionadaFinal:Date;
       if(this.reserva.value.fecha[1] == null){
-        fechaSeleccionadaInicio = this.reserva.value.fecha[0].toDateString();
-        fechaSeleccionadaFinal = this.reserva.value.fecha[0].toDateString();
-        horaSeleccionadaInicio = this.reserva.value.fecha[0].toTimeString();
-        horaSeleccionadaFinal = this.reserva.value.fecha[0].toTimeString();
+        fechaSeleccionadaInicio = this.reserva.value.fecha[0];
+        fechaSeleccionadaFinal = this.reserva.value.fecha[0];
       }else{
-        fechaSeleccionadaInicio = this.reserva.value.fecha[0].toDateString();
-        fechaSeleccionadaFinal = this.reserva.value.fecha[1].toDateString();
-        horaSeleccionadaInicio = this.reserva.value.fecha[0].toTimeString();
-        horaSeleccionadaFinal = this.reserva.value.fecha[1].toTimeString();
+        fechaSeleccionadaInicio = this.reserva.value.fecha[0];
+        fechaSeleccionadaFinal = this.reserva.value.fecha[1];
       }
+      this.casaService.consultaFechasCasas(this.casa.id).then(async (fechas)=>{
+        let band:boolean = false;
+        fechas.forEach(apartado => {
+          if(apartado[1] >= fechaSeleccionadaInicio && apartado[0] <= fechaSeleccionadaFinal){
+            band = true;
+          }
+        });
+        if(!band && this.auth.currentUser){
+          await this.casaService.ingresarFechasCasas(
+            this.casa.id,
+            fechaSeleccionadaInicio,
+            fechaSeleccionadaFinal,
+            this.auth.currentUser.uid,
+            this.reserva.value.CantidadPersona,
+            this.casa.precio
+          ).then(()=>{
+            Swal.fire('Apartado Confirmado','Se ha registrado su apartado','success');
+            this.actualizarFechasDisponibles();
+          }).catch((error)=>{
+            Swal.fire('Error','Ha ocurrido un error' + error,'error');
+          });
+        }else{
+          Swal.fire('Error','Ha ocurrido un error al verificar las fechas, revise que su seleccion este habilitada','error');
+          this.actualizarFechasDisponibles();
+        }
+      }).catch((error)=>{
+        Swal.fire('Error','Ha ocurrido un error' + error,'error');
+      })
+    }else{
+      Swal.fire('Inicio Sesión','Debe iniciar sesión para registrar una reserva','error');
     }
-
 
       //NOTA: hay que hacer dinámica la seleccion de fechas y comprobar que sea correcto
       /*let infoCasas:casasData[];
