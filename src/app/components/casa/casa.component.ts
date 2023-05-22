@@ -6,14 +6,15 @@ import { Casa, CasasService } from 'src/app/services/casas.service';
 import { LocalStorageService, casasData } from 'src/app/services/local-storage.service';
 import Swal from 'sweetalert2';
 import * as L from 'leaflet';
+import { getFirestore, collection } from '@angular/fire/firestore';
+import { Auth, getAuth } from '@angular/fire/auth';
 @Component({
   selector: 'app-casa',
   templateUrl: './casa.component.html',
-  styleUrls: ['./casa.component.css']
+  styleUrls: ['./casa.component.css'],
 })
 export class CasaComponent implements OnInit, AfterViewInit {
   i:number[] = [];
-  usuario!:any;
   minDate: Date = new Date();
   tmpDate: Date = new Date();
   maxDate: Date = new Date(this.tmpDate.setMonth(this.tmpDate.getMonth() + 12));
@@ -33,34 +34,8 @@ export class CasaComponent implements OnInit, AfterViewInit {
   fechaActual = new Date();
   fecha:string = "";
   diasdesh:Date[]=[];
-  ///////////////////////Comienza programación del mapa
-  /*@Output() map$: EventEmitter<L.Map> = new EventEmitter;
-  @Output() zoom$: EventEmitter<number> = new EventEmitter;
-  @Input() options: L.MapOptions= {
-                      layers:[L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        opacity: 0.7,
-                        maxZoom: 19,
-                        detectRetina: true,
-                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      })],
-                      zoom:1,
-                      center:L.latLng(0,0)
-  };
-  public map!: L.Map;
-  public zoom!: number;
 
-  onMapReady(map: L.Map) {
-    this.map = map;
-    this.map$.emit(map);
-    this.zoom = map.getZoom();
-    this.zoom$.emit(this.zoom);
-  }
-
-  onMapZoomEnd({ event }: { event: ZoomAnimEvent; }) {
-    this.zoom = event.target.getZoom();
-    this.zoom$.emit(this.zoom);
-  }*/
-  ///////////////////Termina programación mapa
+  auth:Auth = getAuth();
 
   ///////////////////Geras mapa
   private mapa!:L.Map;
@@ -81,8 +56,6 @@ export class CasaComponent implements OnInit, AfterViewInit {
   ///////////////////Fin Geras mapa
 
   constructor(private casaService:CasasService, private rutaActiva:ActivatedRoute){
-    this.usuario = JSON.parse(sessionStorage.getItem('usr')!);
-    const routeParams = this.rutaActiva.snapshot.params;
     this.casaService.casas.forEach(casita => {
       if(casita.nombre === this.rutaActiva.snapshot.params['casa']){
         this.casa = {
@@ -121,12 +94,9 @@ export class CasaComponent implements OnInit, AfterViewInit {
     }
   }
 
-
-
   ngOnInit(){
     this.actualizarFechasDisponibles();
     this.fecha = this.fechaActual.toLocaleString( );
-    const routeParams = this.rutaActiva.snapshot.params;
     this.casaService.casas.forEach(casita => {
       if(casita.nombre === this.rutaActiva.snapshot.params['casa']){
         this.casa = {
@@ -176,10 +146,11 @@ export class CasaComponent implements OnInit, AfterViewInit {
         horaSeleccionadaInicio = this.reserva.value.fecha[0].toTimeString();
         horaSeleccionadaFinal = this.reserva.value.fecha[1].toTimeString();
       }
+    }
 
 
       //NOTA: hay que hacer dinámica la seleccion de fechas y comprobar que sea correcto
-      let infoCasas:casasData[];
+      /*let infoCasas:casasData[];
       let casaAgregar:casasData = {
         usr: this.usuario.nombre,
         id: this.casa.id,
@@ -220,16 +191,13 @@ export class CasaComponent implements OnInit, AfterViewInit {
       this.actualizarFechasDisponibles();
     }else{
       Swal.fire('Inicio Sesión','Debe iniciar sesión para registrar una reserva','error');
-    }
+    }*/
 
   }
+
   verificarUsr():boolean{
-    let sessionData = sessionStorage.getItem('usr')
-    if(sessionData!=null){
-      return true;
-    }else{
-      return false;
-    }
+    if(this.auth.currentUser) return true;
+    return false;
   }
 
 }
