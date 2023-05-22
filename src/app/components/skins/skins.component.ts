@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiskinsService } from '../../services/apiskins.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Accessibility } from 'accessibility/dist/main'; 
 @Component({
   selector: 'app-skins',
   templateUrl: './skins.component.html',
@@ -23,7 +22,6 @@ export class SkinsComponent implements OnInit{
   ]
   constructor(private apiMinecraft:ApiskinsService){
     this.fontSize = 15;
- 
   }
   ngOnInit(){
     this.recuperarDatos();
@@ -39,6 +37,7 @@ export class SkinsComponent implements OnInit{
   highContrast(){
     this.clasesContrast = " table table-striped table-hover inverted";
     this.ContrastInfo = "card text-bg-dark mb-4 inverted"
+
   }
   normalContrast(){
     this.clasesContrast = " table table-striped table-hover";
@@ -46,11 +45,10 @@ export class SkinsComponent implements OnInit{
   }
   decrease(){
     this.fontSize = (this.fontSize * 0.8);
-    
   }
 
   increase(){
-   // this.acceso.alterTextSize(true);
+    this.fontSize = (this.fontSize / 0.8);
   }
 
   reset(){
