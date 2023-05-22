@@ -283,7 +283,7 @@ export class RegistroComponent implements OnInit {
                     'success'
                   ).then(()=>{
                       this.clearSesion();
-                      this.reactivarBoton(button, "Iniciar Sesión");
+                      this.reactivarBoton(button, 'Iniciar Sesión');
                       this.router.navigate(['home']);
                     }
                   );
@@ -293,7 +293,7 @@ export class RegistroComponent implements OnInit {
                     'No se ha encontrado el documento del usuario',
                     'error').then(()=>{
                       this.auth.signOut();
-                      this.reactivarBoton(button, "Iniciar Sesión");
+                      this.reactivarBoton(button, 'Iniciar Sesión');
                     });
                 }
               });
@@ -302,7 +302,7 @@ export class RegistroComponent implements OnInit {
                 'Inicio de sesión',
                 'Ha ocurrido un error: ' + error,
                 'error').then(()=>{
-                  this.reactivarBoton(button, "Iniciar Sesión");
+                  this.reactivarBoton(button, 'Iniciar Sesión');
                 });
             }
           })
@@ -311,7 +311,7 @@ export class RegistroComponent implements OnInit {
               'Inicio de sesión',
               'Ha ocurrido un error: ' + error.message,
               'error').then(()=>{
-                this.reactivarBoton(button, "Iniciar Sesión");
+                this.reactivarBoton(button, 'Iniciar Sesión');
               });
           });
       }else{
@@ -471,77 +471,5 @@ export class RegistroComponent implements OnInit {
   public get numberphone(){
     return this.phone.get('numberphone');
   }
-
-  /* //Configuracion para almacenamiento local
-
-  usuariosFromLS: any[] = [];
-  usuariosObj: Object[] = [];
-  localStorageData: any = '';
-  data!: any;
-
-
-  procesar() {
-    this.usuariosFromLS = [];
-    if (document.getElementById('registro')?.classList.contains('habilitado')) {
-      this.localStorageData = localStorage.getItem('usuarios');
-      console.log(this.localStorageData);
-
-      if (this.localStorageData != null) {
-        console.log('Hay datos en el LocalStorage: ', this.localStorageData);
-
-        this.usuariosFromLS.push(JSON.parse(this.localStorageData));
-
-        this.usuariosFromLS.push(this.usuario.value);
-
-        localStorage.setItem('usuarios', JSON.stringify(this.usuariosFromLS));
-
-      } else {
-        this.usuariosFromLS.push(this.usuario.value);
-        localStorage.setItem('usuarios', JSON.stringify(this.usuariosFromLS));
-      }
-      Swal.fire(
-        'Registro',
-        'Se ha registrado correctamente',
-        'success'
-      );
-    } else {
-      Swal.fire('Registro', 'Verifique que los datos estén completos', 'error');
-    }
-  }
-
-  login() {
-    if (document.getElementById('inicio')?.classList.contains('habilitado')) {
-      this.data = localStorage.getItem('usuarios');
-      if (this.data != null) {
-        this.data = JSON.parse(this.data);
-        let band = false;
-        this.data.forEach((user: any) => {
-          if (
-            user.usrName === this.sesion.value['usrNameLog'] &&
-            user.passwd === this.sesion.value['passwdLog']
-          ) {
-            sessionStorage.setItem('usr', JSON.stringify(user));
-            Swal.fire(
-              'Inicio de sesión',
-              'Se ha iniciado correctamente',
-              'success'
-            );
-            band = true;
-          }
-        });
-        if (!band) {
-          Swal.fire('Inicio de sesión', 'Revise sus datos', 'error');
-        }
-      }else{
-        Swal.fire('Inicio de sesión', 'No se ha podido recuperar la base de datos', 'error');
-      }
-    }else {
-      Swal.fire('Inicio de sesión', 'Verifique que los datos estén completos', 'error');
-    }
-  }
-
-
-
-  */
 
 }
