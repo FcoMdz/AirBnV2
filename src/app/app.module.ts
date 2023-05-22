@@ -34,6 +34,7 @@ import { DudasComponent } from './dudas/dudas.component';
 import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
 import { SkinsComponent } from './components/skins/skins.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -18,3 +18,16 @@ p{
 .body {
     min-height: 85vh;
 }
+.slideout{
+    position: fixed;
+}
+.ngbDropdown{
+    margin: 1px 1px;
+}
+.normal {
+    filter: invert(0%);
+}
+
+.inverted {
+    filter: invert(100%);
+}

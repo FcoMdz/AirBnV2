@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   busqueda:string = "";
 
   constructor(private primengConfig: PrimeNGConfig){
-
+    
   }
 
   ngOnInit(): void {
