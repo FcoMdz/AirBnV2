@@ -14,10 +14,26 @@ export class AppComponent implements OnInit{
   termino:HTMLInputElement | undefined;
   busqueda:string = "";
 
-
+  auth:Auth = getAuth();
 
   constructor(private primengConfig: PrimeNGConfig){
 
+  }
+
+  cerrarSesion(){
+    signOut(this.auth).then(()=>{
+      Swal.fire(
+        'Cerrar sesión',
+        'Se ha cerrado la sesión',
+        'success'
+      );
+    }).catch((error)=>{
+      Swal.fire(
+        'Cerrar sesión',
+        'Ha ocurrido un error: ' + error,
+        'error'
+      );
+    });
   }
 
   ngOnInit(): void {
@@ -33,29 +49,17 @@ export class AppComponent implements OnInit{
         this.busqueda = "";
       }
     });
-    const auth:Auth = getAuth();
     let btnRegistro = document.getElementById("inicioSesion");
-    onAuthStateChanged(auth, (user) => {
-      if(user && btnRegistro){
-        btnRegistro.innerHTML = "Cerrar sesión";
-        btnRegistro.onclick = () => {
-          signOut(auth).then(()=>{
-            Swal.fire(
-              'Cerrar sesión',
-              'Se ha cerrado la sesión',
-              'success'
-            );
-          }).catch((error)=>{
-            Swal.fire(
-              'Cerrar sesión',
-              'Ha ocurrido un error: ' + error,
-              'error'
-            );
-          });
-        }
-      }else if(btnRegistro){
-        btnRegistro.innerHTML = "Registarse / Iniciar Sesión";
-        btnRegistro.onclick = ()=>{};
+    let btnCerrar = document.getElementById("cerrarSesion");
+    onAuthStateChanged(this.auth, (user) => {
+      if(user && btnRegistro && btnCerrar){
+        btnRegistro.innerHTML = "Bienvenido, " + this.auth.currentUser?.displayName;
+        btnRegistro.setAttribute("disabled", "true");
+        btnCerrar.removeAttribute("disabled");
+      }else if(btnRegistro && btnCerrar){
+        btnRegistro.innerHTML = '<i class="fa-solid fa-user"></i> Iniciar Sesión';
+        btnRegistro.removeAttribute("disabled");
+        btnCerrar.setAttribute("disabled", "true");
       }
     });
   }

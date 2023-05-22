@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { getAuth, createUserWithEmailAndPassword, Auth, signInWithEmailAndPassword, RecaptchaVerifier, signInWithPhoneNumber, linkWithPhoneNumber, deleteUser } from '@angular/fire/auth';
+import { getAuth, createUserWithEmailAndPassword, Auth, signInWithEmailAndPassword, RecaptchaVerifier, signInWithPhoneNumber, linkWithPhoneNumber, deleteUser, updateProfile } from '@angular/fire/auth';
 import { doc, getFirestore, setDoc, deleteDoc } from '@angular/fire/firestore';
 import { getDoc } from '@firebase/firestore';
 import { user } from 'src/app/services/local-storage.service';
@@ -63,7 +63,7 @@ export class RegistroComponent implements OnInit {
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 1000,
             timerProgressBar: true,
             didOpen: (toast) => {
               toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -162,6 +162,10 @@ export class RegistroComponent implements OnInit {
                     }).then((result)=>{
                       confirmResult.confirm(result.value?.login || "").
                       then(()=>{
+                        if(this.auth.currentUser)
+                        updateProfile(this.auth.currentUser,{
+                          displayName: this.usuario.value.nombre
+                        })
                         Swal.fire(
                           'Registro',
                           'Se ha registrado correctamente, ' + this.usuario.value.nombre,
@@ -276,7 +280,7 @@ export class RegistroComponent implements OnInit {
                   }
                   Swal.fire(
                     'Inicio de sesión',
-                    'Se ha iniciado correctamente, ' + this.datosUsuario.nombre,
+                    'Se ha iniciado correctamente, ' + this.auth.currentUser?.displayName,
                     'success'
                   ).then(()=>{
                       this.clearSesion();
@@ -357,7 +361,7 @@ export class RegistroComponent implements OnInit {
                   .then((confirmacion)=>{
                     Swal.fire(
                       'Inicio de sesión',
-                      'Se ha iniciado correctamente, ' /*+ this.datosUsuario.nombre*/,
+                      'Se ha iniciado correctamente, ' + this.auth.currentUser?.displayName,
                       'success'
                     ).then(()=>{
                         this.clearSesionwPhone();

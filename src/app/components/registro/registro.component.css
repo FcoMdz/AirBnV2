@@ -53,6 +53,10 @@ form .user-details .input-box {
   width: calc(100% / 2 - 20px);
 }
 
+#inputPhone{
+  width: 100%;
+}
+
 form .input-box span.details {
   display: block;
   font-weight: 500;

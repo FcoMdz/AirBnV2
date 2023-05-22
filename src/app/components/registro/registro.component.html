@@ -1,41 +1,66 @@
 <div class="body">
   <div class="container">
     <div class="title">Iniciar Sesión</div>
-    <form [formGroup]="sesion" (ngSubmit)="login()">
-      <div class="user-details row">
-        <div class="input-box col-6 mx-2">
-          <label class="form-label">Correo electrónico</label>
-          <input type="text" class="form-control" formControlName="usrNameLog"
-            placeholder="Ingresa tu correo electrónico">
+    <div class="content">
+      <form [formGroup]="sesion" (ngSubmit)="login()">
+        <div class="user-details row">
+          <div class="input-box">
+            <label class="form-label">Correo electrónico</label>
+            <input type="text" class="form-control" formControlName="usrNameLog"
+              placeholder="Ingresa tu correo electrónico">
 
-          <div class="alert alert-danger mt-2" [hidden]="usrNameLog?.pristine || usrNameLog?.valid">
-            <span *ngIf="usrNameLog?.errors?.['required']">
-              El nombre de usuario es requerido
-            </span>
+            <div class="alert alert-danger mt-2" [hidden]="usrNameLog?.pristine || usrNameLog?.valid">
+              <span *ngIf="usrNameLog?.errors?.['required']">
+                El nombre de usuario es requerido
+              </span>
+            </div>
+          </div>
+
+          <div class="input-box">
+            <label class="form-label">Contraseña</label>
+            <input type="password" class="form-control" formControlName="passwdLog" placeholder="Ingresa tu contraseña">
+
+            <div class="alert alert-danger mt-2" [hidden]="passwdLog?.pristine || passwdLog?.valid">
+              <span *ngIf="passwdLog?.errors?.['required']">
+                La contraseña es requerida
+              </span>
+            </div>
           </div>
         </div>
 
-        <div class="input-box col-6 mx-2">
-          <label class="form-label">Contraseña</label>
-          <input type="password" class="form-control" formControlName="passwdLog" placeholder="Ingresa tu contraseña">
+        <div id="inicio" [ngClass]="(sesion.invalid || !(checkPsswd())) ? 'deshabilitado':'habilitado'" class="button">
+          <button id="inputIniciar" type="submit">Iniciar Sesión</button>
+        </div>
 
-          <div class="alert alert-danger mt-2" [hidden]="passwdLog?.pristine || passwdLog?.valid">
-            <span *ngIf="passwdLog?.errors?.['required']">
-              La contraseña es requerida
-            </span>
+      </form>
+    </div>
+
+    <div class="title">Iniciar Sesión Con Teléfono</div>
+    <div class="content">
+      <form [formGroup]="phone" (ngSubmit)="loginwphone()">
+        <div class="user-details row">
+          <div class="input-box" id="inputPhone">
+            <label class="form-label">Número de teléfono</label>
+            <input type="text" class="form-control" formControlName="numberphone"
+              placeholder="Ingresa tu número de teléfono">
+              <div class="alert alert-danger mt-2" [hidden]="numberphone?.pristine || numberphone?.valid">
+                <span *ngIf="numberphone?.errors?.['required']">
+                  El telefono es requerido
+                </span>
+                <span *ngIf="numberphone?.errors?.['wrongNumber']">
+                  Introduzca el numero en el formato: [+][Codigo del país][Número de telefono]
+                </span>
+              </div>
           </div>
         </div>
-      </div>
-
-      <div id="inicio" [ngClass]="(sesion.invalid || !(checkPsswd())) ? 'deshabilitado':'habilitado'" class="button">
-        <button id="inputIniciar" type="submit">Iniciar Sesión</button>
-      </div>
-
-    </form>
-
+        <div id="iniciowphone" [ngClass]="phone.invalid ? 'deshabilitado':'habilitado'" class="button">
+          <button id="inputIniciarwphone" type="submit">Iniciar Sesión</button>
+        </div>
+      </form>
+    </div>
     <hr>
 
-    <div class="title">Registro</div>
+    <div class="title mt-2">Registro</div>
     <div class="content">
       <form [formGroup]="usuario" (ngSubmit)="procesar()">
 
@@ -57,7 +82,7 @@
           </div>
 
           <div class="input-box">
-            <label class="form-label">Nombre de usuario</label>
+            <label class="form-label">Usuario de Minecraft</label>
             <input type="text" class="form-control" formControlName="usrName"
               placeholder="Ingresa tu nombre de usuario">
 
@@ -150,30 +175,5 @@
         </div>
       </form>
     </div>
-
-    <hr>
-
-    <div class="title">Iniciar Sesión Con Telefono</div>
-    <form [formGroup]="phone" (ngSubmit)="loginwphone()">
-      <div class="user-details row">
-        <div class="input-box col-6 mx-2">
-          <label class="form-label">Número de telefono</label>
-          <input type="text" class="form-control" formControlName="numberphone"
-            placeholder="Ingresa tu número de telefono">
-
-            <div class="alert alert-danger mt-2" [hidden]="numberphone?.pristine || numberphone?.valid">
-              <span *ngIf="numberphone?.errors?.['required']">
-                El telefono es requerido
-              </span>
-              <span *ngIf="numberphone?.errors?.['wrongNumber']">
-                Introduzca el numero en el formato: [+][Codigo del país][Número de telefono]
-              </span>
-            </div>
-        </div>
-      </div>
-      <div id="iniciowphone" [ngClass]="phone.invalid ? 'deshabilitado':'habilitado'" class="button">
-        <button id="inputIniciarwphone" type="submit">Iniciar Sesión</button>
-      </div>
-    </form>
   </div>
 </div>
