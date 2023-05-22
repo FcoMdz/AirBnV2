@@ -17,3 +17,12 @@ export interface casasData{
   horaInicio:string;
   horaFinal:string;
 }
+
+export interface user{
+  uid: string;
+  nombre: string;
+  email: string;
+  gender: string;
+  telefono: string;
+  usrName: string;
+}

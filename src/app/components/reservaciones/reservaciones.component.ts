@@ -14,9 +14,8 @@ export class ReservacionesComponent {
     this.data =  localStorage.getItem('casasData');
     if(this.data != null){
       this.informacion = JSON.parse(this.data);
-      console.log(this.informacion);
     }
-    
+
   }
 
   verififcarDatos():boolean{

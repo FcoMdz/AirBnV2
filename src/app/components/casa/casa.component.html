@@ -21,7 +21,7 @@
         </button>
       </div>
     </div>
-    
+
     <div class="col-12 col-lg-6 contenidoCentrar">
       <h5 class="card-title">{{ casa.nombre }}</h5>
       <hr>
@@ -70,7 +70,6 @@
             <div class="m-2">
               <label class="form-control mb-2" for="calendario">Fechas</label>
               <p-calendar
-                style="width: 100%;"
                 dateFormat="dd/mm/yy"
                 formControlName="fecha"
                 inputId="calendario"
@@ -99,11 +98,11 @@
           <div class="my-3">
             <div  *ngIf="verificarUsr(); else NoUsr" >
               <button type="submit" class="btn btn-outline-dark">
-              Hacer cotización
+                Reservar
               </button>
             </div>
             <ng-template #NoUsr>
-              <button type="submit" class="btn btn-outline-dark" disabled>
+              <button type="submit" class="btn btn-outline-dark" routerLink="/registro">
                 Inicia sesión para continuar
                 </button>
             </ng-template>

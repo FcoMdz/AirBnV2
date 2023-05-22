@@ -1,31 +1,18 @@
 <div class="todo">
   <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
     <div class="container-fluid" >
-      <a class="navbar-brand" routerLink="home">
+      <a class="navbar-brand ms-0" routerLink="home">
         <img src="../assets/Img/777.png" alt="" width="60" class="mb-3" class="nav777">
       </a>
-      
       <button class="navbar-toggler btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="home">AirbnV</a>
           </li>
-          
-          <!--<li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>-->
-          
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" routerLink="reservaciones">Reservaciones</a>
           </li>
@@ -39,22 +26,47 @@
             <a class="nav-link" routerLinkActive="active" routerLink="conocenos">Conocenos</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" id="termino" type="search" placeholder="Search" aria-label="Search">
-          <button routerLink="busqueda/{{ busqueda }}" class="btn btn-outline-light" type="submit">Search</button>
-        </form>
-        <div>
-          <button class="btn btn-outline-info me-2 me-md-0 ms-md-2 mt-2 mt-md-0" routerLink="registro">Registrarse</button>
+        <ul class="navbar-nav justify-content-end">
+          <li>
+            <div class="mt-2 mt-lg-0">
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" id="termino" type="search" placeholder="Search" aria-label="Search">
+                <button routerLink="busqueda/{{ busqueda }}" class="btn btn-outline-light" type="submit">Search</button>
+              </form>
+            </div>
+          </li>
+        </ul>
+        <div class="btn-group">
+          <button id="inicioSesion" type="button" class="btn btn-outline-info ms-lg-2 mt-2 mt-lg-0" routerLink="registro">
+            <i class="fa-solid fa-user"></i> Iniciar Sesión
+          </button>
+          <button type="button" class="btn btn-outline-info dropdown-toggle dropdown-toggle-split me-2 me-md-0 mt-2 mt-lg-0" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end">
+            <li>
+              <button class="dropdown-item" routerLink="">Perfil</button>
+            </li>
+            <li>
+              <button id="cerrarSesion" class="dropdown-item" disabled routerLink="registro" (click) = "cerrarSesion()">Cerrar sesión</button>
+            </li>
+          </ul>
         </div>
       </div>
+
+
+
+
     </div>
   </nav>
+
   <div class="container cuerpo">
     <div class="row my-5">
       <router-outlet></router-outlet>
     </div>
   </div>
-  <footer data-bs-theme="dark" class="navbar navbar-fixed-bottom"> 
+
+  <footer data-bs-theme="dark" class="navbar navbar-fixed-bottom">
     <div class="container py-5">
       <div class="row py-4 justify-content-center">
         <div class="col-lg-4 col-md-6 mb-4 mb-lg-0"><img src="../assets/Img/777.png" alt="" width="180" class="mb-3">
@@ -87,7 +99,7 @@
         </div>-->
       </div>
     </div>
-  
-  
+
+
   </footer>
 </div>

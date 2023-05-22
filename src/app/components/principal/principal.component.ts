@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { getAuth } from '@angular/fire/auth';
 import { Casa, CasasService } from 'src/app/services/casas.service';
 
 @Component({

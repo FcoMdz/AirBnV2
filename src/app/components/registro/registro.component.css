@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');*/
 
 * {
   margin: 0;
@@ -51,6 +51,10 @@
 form .user-details .input-box {
   margin-bottom: 15px;
   width: calc(100% / 2 - 20px);
+}
+
+#inputPhone{
+  width: 100%;
 }
 
 form .input-box span.details {
@@ -120,7 +124,7 @@ form .button {
   margin: 35px 0
 }
 
-form .habilitado input {
+form .habilitado button {
   height: 100%;
   width: 100%;
   border-radius: 5px;
@@ -134,11 +138,11 @@ form .habilitado input {
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
 
-form .habilitado input:hover {
+form .habilitado button:hover {
   background: linear-gradient(-135deg, #71b7e6, #9b59b6);
 }
 
-form .deshabilitado input {
+form .deshabilitado button {
   height: 100%;
   width: 100%;
   border-radius: 5px;

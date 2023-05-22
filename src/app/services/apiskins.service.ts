@@ -1,18 +1,32 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Query } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { getFirestore, getDocs, Firestore, collection } from '@angular/fire/firestore';
+import { user } from './local-storage.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiskinsService {
 
-  constructor(private http: HttpClient) { }
+  consulta!:any;
+  db!:Firestore;
+  q!:any;
+  data!:any;
 
-  retornar(usuarios:string[]) {
+  constructor(private http: HttpClient) {
+
+  }
+
+  async retornar() {
+    let usr:user[] = [];
+    this.db = getFirestore();
+    this.data = await getDocs(collection(this.db, 'usuarios'));
+    this.data.forEach((element: any) => {
+      usr.push(<user>element.data());
+    });
     let resultados:any = [];
-    usuarios.forEach(usuario => {
-      this.http.get("https://api.ashcon.app/mojang/v2/user/"+usuario).subscribe(
+    usr.forEach(usuario => {
+      this.http.get("https://api.ashcon.app/mojang/v2/user/"+usuario.usrName).subscribe(
         (result:any) => {
           resultados.push(result);
         },
