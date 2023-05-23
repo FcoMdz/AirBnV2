@@ -31,5 +31,13 @@
       "type": "image/png",
       "purpose": "maskable"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ver casas",
+      "short_name": "Rentar",
+      "description": "Ver las casas disponibles",
+      "url": "./"
+    }
   ]
 }
