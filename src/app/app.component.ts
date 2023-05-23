@@ -91,8 +91,8 @@ export class AppComponent implements OnInit{
         disableAnimations: false
       },
       language: {
-        textToSpeechLang: 'es-MX',
-        speechToTextLang: 'es-MX'
+        textToSpeechLang: 'en-US',
+        speechToTextLang: 'en-US'
       },
       labels:{
         resetTitle: 'Reiniciar',

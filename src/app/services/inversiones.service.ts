@@ -8,6 +8,6 @@ export class InversionesService {
   constructor(public httpClient: HttpClient) {}
   getJSON(url: string) {
     let base = "https://nodejs-vegetta777-gerardo1209.onrender.com"
-    return this.httpClient.get(`${base}/${url}`);
+    return this.httpClient.get(`${base}${url}`);
   }
 }
