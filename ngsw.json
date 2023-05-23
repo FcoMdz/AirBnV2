@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1684829945094,
+  "timestamp": 1684830479833,
   "index": "/AirBnV2/index.html",
   "assetGroups": [
     {
@@ -236,7 +236,7 @@
     "/AirBnV2/layers-2x.9859cd1231006a4a.png": "152a162333e46d24f9d89f566312fc0c64011dee",
     "/AirBnV2/layers.ef6db8722c2c3f9a.png": "c9e7528e491a39232ba24a2706c6c739d6fb0f06",
     "/AirBnV2/main.38297dbf6caeafb8.js": "4c0fd6b0d5eac68dbb40c0aa8bf55c625a96a755",
-    "/AirBnV2/manifest.webmanifest": "3773b2cd974ed2642b641f7af1e9cea5911c382f",
+    "/AirBnV2/manifest.webmanifest": "aeaed13486da5e443d65ff598be82e3cc3515aa3",
     "/AirBnV2/marker-icon.d577052aa271e13f.png": "60a90bcbb2b42b7ddb4556db94eb7c1084b0e5da",
     "/AirBnV2/polyfills.27c4e8ebdcfe8438.js": "c6cce64719134129f72bbb483ad4a1de87622fc2",
     "/AirBnV2/primeicons.0112589c5695a9ed.ttf": "ceeb46d594fde5cc507cdf8b70e38e78fe47653c",
