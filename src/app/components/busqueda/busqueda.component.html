@@ -23,7 +23,7 @@
                       <div class="card flex justify-content-center mt-2 text-center">
                           <label for="calendario"><strong class="text-center">Fechas disponibles</strong></label>
                           <hr>
-                          <p-calendar dateFormat="dd/mm/yy" inputId="calendario" class="mb-2" [(ngModel)]="rangeDates" selectionMode="range" [minDate]="minDate" [readonlyInput]="true" (onSelect)="filtrarResultados()"></p-calendar>
+                          <p-calendar dateFormat="dd/mm/yy" inputId="calendario" class="mb-2" [(ngModel)]="rangeDates" selectionMode="range" [minDate]="minDate" [readonlyInput]="true" (onClose)="filtrarResultados()"></p-calendar>
                       </div>
                       <div class="card flex justify-content-center mt-2 text-center">
                           <label for="minmax"><strong class="text-center">Cantidad Personas</strong></label>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { elementAt } from 'rxjs';
 import { Bioma, Casa, CasasService } from 'src/app/services/casas.service';
 import { casasData } from 'src/app/services/local-storage.service';
 
@@ -83,16 +82,16 @@ export class BusquedaComponent implements OnInit {
       }
       this.rangeValues = [this.minValue, this.maxValue];
       this.resultadosFiltrados = this.resultados;
-      if(localStorage.getItem("casasData") != null){
+      /*if(localStorage.getItem("casasData") != null){
         this.infoCasas = JSON.parse(localStorage.getItem('casasData') || "{}");
       }else{
         this.infoCasas = [];
-      }
+      }*/
       this.filtrarResultados();
     });
   }
 
-  filtrarResultados(): void {
+  async filtrarResultados(): Promise<void> {
     if (this.ciudadSeleccionada == null) this.ciudadSeleccionada = { name: "", code: "" };
     this.resultadosFiltrados = [];
 
@@ -124,13 +123,10 @@ export class BusquedaComponent implements OnInit {
       }
 
       //Comprobando disponibilidad de fechas
-      let band = false
+      let band = false;
       if(this.rangeDates!=undefined){
-        for (let index = 0; index < this.infoCasas.length; index++) {
-          const apartado = this.infoCasas[index];
-          if(apartado.id == element.id){
-            let fechaInicio = new Date(apartado.fechaInicio);
-            let fechaFinal = new Date(apartado.fechaFinal);
+        await this.casasService.consultaFechasCasa(element.id).then((fechas)=>{
+          fechas.forEach((fecha) => {
             let fechaBusquedaInicio;
             let fechaBusquedaFinal;
             if(this.rangeDates[1] == null){
@@ -140,14 +136,13 @@ export class BusquedaComponent implements OnInit {
               fechaBusquedaInicio = new Date(this.rangeDates[0].toDateString());
               fechaBusquedaFinal = new Date(this.rangeDates[1].toDateString());
             }
-            if(fechaFinal >= fechaBusquedaInicio && fechaInicio <= fechaBusquedaFinal){
+            if(fecha[1] >= fechaBusquedaInicio && fecha[0] <= fechaBusquedaFinal){
               band = true;
             }
-          }
-        }
+          })
+        });
       }
       if(band) continue;
-
       this.resultadosFiltrados.push(element);
     }
   }
