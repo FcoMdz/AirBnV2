@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Bioma, Casa, CasasService } from 'src/app/services/casas.service';
 import { casasData } from 'src/app/services/local-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-busqueda',
@@ -96,15 +97,29 @@ export class BusquedaComponent implements OnInit {
   }
 
   filtrarResultados():void{
+    let modal = Swal;
+    if(this.rangeDates!=undefined){
+      modal.fire({
+        title: 'Filtrando',
+        html: 'Se estan filtrando los resultados',
+        didOpen: ()=>{
+          Swal.showLoading();
+        },
+        allowOutsideClick: false
+      });
+    }
     this.filtrarResultadosAsync().then((res)=>{
       this.resultadosFiltrados = res;
+      if(this.rangeDates!=undefined) modal.close();
     }).catch((error)=>{
-      console.log(error);
+      if(this.rangeDates!=undefined) modal.close();
     });
   }
 
 
   async filtrarResultadosAsync(): Promise<Casa[]> {
+
+
     if (this.ciudadSeleccionada == null) this.ciudadSeleccionada = { name: "", code: "" };
 
     let resultadosFiltrados = [];
