@@ -9,12 +9,14 @@ import { DudasComponent } from './dudas/dudas.component';
 import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
 import { SkinsComponent } from './components/skins/skins.component';
 import { ComoUsarComponent } from './components/como-usar/como-usar.component';
+import { InversionesComponent } from './components/inversiones/inversiones.component';
 
 const routes: Routes = [
   { path: 'busqueda/:termino', component: BusquedaComponent},
   { path: 'busqueda', component: BusquedaComponent},
   { path: 'registro',  component: RegistroComponent},
   { path: 'casa/:casa', component: CasaComponent},
+  { path: 'inversiones', component: InversionesComponent },
   { path: 'conocenos', component: ConocenosComponent},
   { path: 'dudas', component: DudasComponent},
   { path: 'reservaciones', component: ReservacionesComponent},

@@ -42,6 +42,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { InversionesComponent } from './components/inversiones/inversiones.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     DudasComponent,
     ReservacionesComponent,
     SkinsComponent,
+    InversionesComponent,
   ],
   imports: [
     BrowserModule,
