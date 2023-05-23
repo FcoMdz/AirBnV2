@@ -87,13 +87,27 @@ export class BusquedaComponent implements OnInit {
       }else{
         this.infoCasas = [];
       }*/
-      this.filtrarResultados();
+      this.filtrarResultadosAsync().then((res)=>{
+        this.resultadosFiltrados = res;
+      }).catch((error)=>{
+        console.log(error);
+      });
     });
   }
 
-  async filtrarResultados(): Promise<void> {
+  filtrarResultados():void{
+    this.filtrarResultadosAsync().then((res)=>{
+      this.resultadosFiltrados = res;
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
+
+
+  async filtrarResultadosAsync(): Promise<Casa[]> {
     if (this.ciudadSeleccionada == null) this.ciudadSeleccionada = { name: "", code: "" };
-    this.resultadosFiltrados = [];
+
+    let resultadosFiltrados = [];
 
     for (let i = 0; i < this.resultados.length; i++) {
 
@@ -143,8 +157,9 @@ export class BusquedaComponent implements OnInit {
         });
       }
       if(band) continue;
-      this.resultadosFiltrados.push(element);
+      resultadosFiltrados.push(element);
     }
+    return resultadosFiltrados;
   }
 
 }
