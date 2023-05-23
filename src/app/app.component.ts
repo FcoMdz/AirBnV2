@@ -77,8 +77,8 @@ export class AppComponent implements OnInit{
   initAccessibility():void{
     var opt = new Accessibility({
       language: {
-        textToSpeechLang: 'en-US',
-        speechToTextLang: 'en-US'
+        textToSpeechLang: 'es-MX',
+        speechToTextLang: 'es-MX'
       },
       labels:{
         resetTitle: 'Reiniciar',
