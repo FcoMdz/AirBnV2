@@ -7,6 +7,7 @@ import { LocalStorageService, casasData } from 'src/app/services/local-storage.s
 import Swal from 'sweetalert2';
 import * as L from 'leaflet';
 import { Auth, getAuth } from '@angular/fire/auth';
+import { SendmailService } from 'src/app/services/sendmail.service';
 @Component({
   selector: 'app-casa',
   templateUrl: './casa.component.html',
@@ -54,7 +55,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
 
   ///////////////////Fin Geras mapa
 
-  constructor(private casaService:CasasService, private rutaActiva:ActivatedRoute){
+  constructor(private casaService:CasasService, private rutaActiva:ActivatedRoute, private sendmail:SendmailService){
     this.casaService.casas.forEach(casita => {
       if(casita.nombre === this.rutaActiva.snapshot.params['casa']){
         this.casa = {
@@ -157,7 +158,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
           ).then(()=>{
             Swal.fire('Apartado Confirmado','Se ha registrado su apartado','success');
             this.actualizarFechasDisponibles();
-
+            correo();
           }).catch((error)=>{
             Swal.fire('Error','Ha ocurrido un error' + error,'error');
           });
@@ -178,5 +179,13 @@ export class CasaComponent implements OnInit, AfterViewInit {
     if(this.auth.currentUser) return true;
     return false;
   }
+  correo() {
+    let body = {
+      casa:this.casa,
+      usr:this.auth.currentUser
+    }
+    this.sendmail.alta('http://localhost:3000/reserva',body);
+  }
 
 }
+
