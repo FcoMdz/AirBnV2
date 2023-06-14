@@ -1,6 +1,6 @@
 <div class="container">
-    <div  class="row card mb-4 p-3" >
-        <h2>"Si lo puedes imaginar, lo puedes construir" </h2>
+    <div  class="row card mb-4 p-3 " >
+        <h2 class="">"Si lo puedes imaginar, lo puedes construir" </h2>
     </div>
     <div class="row card mb-4 p-3" >
 
@@ -24,9 +24,12 @@
           </div>
         </div>
       </div>
-      <div class="row mb-4 card p-3 justify-content-center" >
+      <div class="row mb-4 card p-3 justify-content-center centrar card" >
         <h2>Algunas de nuestras casas</h2>
-        <app-cards [casas]="mostrar"></app-cards>
+        <div class="d-flex">
+          <app-cards [casas]="mostrar"></app-cards>
+        </div>
+        
       </div>
       <div class="row mb-4 card p-3" >
         <h2>Acerca del creador de las casas:</h2>
