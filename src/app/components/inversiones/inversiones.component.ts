@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { InversionesService } from 'src/app/services/inversiones.service';
-
 @Component({
   selector: 'app-inversiones',
   templateUrl: './inversiones.component.html',

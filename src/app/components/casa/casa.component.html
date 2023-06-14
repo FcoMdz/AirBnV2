@@ -5,10 +5,10 @@
       <div id="carouselExampleFade" class="carousel slide carousel-fade">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="assets/casas/{{casa.carpetaImg}}/{{casa.rutaImg[0]}}" class="d-block w-100 rounded" alt="...">
+            <img src="../../../assets/casas/{{casa.carpetaImg}}/{{casa.rutaImg[0]}}" class="d-block w-100 rounded" alt="...">
           </div>
             <div class="carousel-item" *ngFor="let imagen of casa.rutaImg | slice:1; let i = index;">
-              <img src="assets/casas/{{casa.carpetaImg}}/{{imagen}}" class="d-block w-100 rounded" alt="...">
+              <img src="../../../assets/casas/{{casa.carpetaImg}}/{{imagen}}" class="d-block w-100 rounded" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">

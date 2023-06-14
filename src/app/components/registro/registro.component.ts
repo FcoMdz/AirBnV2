@@ -165,15 +165,15 @@ export class RegistroComponent implements OnInit {
                         if(this.auth.currentUser)
                         updateProfile(this.auth.currentUser,{
                           displayName: this.usuario.value.nombre
-                        })
+                        });
                         Swal.fire(
                           'Registro',
-                          'Se ha registrado correctamente, ' + this.usuario.value.nombre,
+                          'Se ha registrado correctamente, ' + this.usuario.value.nombre + '. Inice sesión.',
                           'success'
                         ).then(()=>{
+                            this.auth.signOut();
                             this.clearForm();
                             this.reactivarBoton(button, "Registrar");
-                            this.router.navigate(['home']);
                           }
                         );
                       })

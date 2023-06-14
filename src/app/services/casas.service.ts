@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { getFirestore, getDocs, Firestore, collection, query, where, setDoc, CollectionReference, doc, addDoc, getDocFromServer, collectionGroup } from '@angular/fire/firestore';
+import { getFirestore, getDocs, getDoc, Firestore, collection, query, where, setDoc, CollectionReference, doc, addDoc, collectionGroup } from '@angular/fire/firestore';
+import * as numeral from 'numeral';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,6 @@ export class CasasService {
 
   db:Firestore = getFirestore();
   collection:CollectionReference = collection(this.db,'casas');
-
   async consultaFechasCasa(idCasa:number){
     let referencia = collection(this.collection, idCasa.toString(), 'apartado');
     let apartados = await getDocs(referencia);
@@ -38,10 +38,32 @@ export class CasasService {
     return fechas;
   }
 
-
+  async consultaApartadosCasas(){
+    var reservaciones:any[] = [];
+    for (let i = 0; i < this.casas.length; i++) {
+      const element = this.casas[i];
+      reservaciones[element.id] = [];
+      let referencia = collection(this.collection, element.id.toString(), 'apartado');
+      let apartados = await getDocs(referencia);
+      var j = 0;
+      apartados.forEach(async (document)=>{
+        var reservacion = document.data();
+        let usuario = doc(this.db, 'usuarios', reservacion['uid']);
+        let infoUsuario = await getDoc(usuario);
+        reservacion["infoUsuario"] = infoUsuario.data();
+        reservacion["fechaInicioFormato"] = new Date(reservacion['fechaInicio']).toLocaleDateString();
+        reservacion["fechaFinalFormato"] = new Date(reservacion['fechaFinal']).toLocaleDateString();
+        reservacion["precioFormato"] = numeral(reservacion['precio']).format('0,0.00');
+        reservaciones[element.id][j++] = reservacion;
+      });
+    }
+    reservaciones.shift();
+    return reservaciones;
+  }
 
   async ingresarFechasCasas(idCasa:number, fechaInicio:Date, fechaFinal:Date, uid:string, cantPersonas:number, precio:number){
     let data = {
+      idCasa: idCasa,
       fechaInicio: fechaInicio.toISOString(),
       fechaFinal: fechaFinal.toISOString(),
       uid: uid,
@@ -53,7 +75,6 @@ export class CasasService {
   }
 
   casas:Casa [] = [
-
     { id: 1,
       nombre: "Casa 1",
       precio:100000,
@@ -68,7 +89,6 @@ export class CasasService {
       tags: ["Rural","Actividades", "Campo"],
       ubicacion: {name: "Aguascalientes", code: "AGS"}
      },
-
      {
       id: 2,
       nombre: "Casa 2",

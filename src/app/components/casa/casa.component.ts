@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators, ValidationErrors, AbstractControl }
 import { ActivatedRoute } from '@angular/router';
 import { max, retry } from 'rxjs';
 import { Casa, CasasService } from 'src/app/services/casas.service';
-import { casasData } from 'src/app/services/local-storage.service';
+import { LocalStorageService, casasData } from 'src/app/services/local-storage.service';
 import Swal from 'sweetalert2';
 import * as L from 'leaflet';
 import { Auth, getAuth } from '@angular/fire/auth';

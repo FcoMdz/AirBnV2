@@ -1,8 +1,8 @@
 <div class="row my-4 text-center">
     <div *ngFor="let casa of casas" @fade class=" mx-xxl-1 col-xxl-2 col-xl-3 col-lg-4 col-md-6 my-1">
         <a  routerLink="/casa/{{ casa.nombre }}" >
-            <div class="card">
-                <img src="assets/casas/{{casa.carpetaImg}}/{{casa.rutaImg[0]}}" class="card-img-top mb-1 rounded-top" alt="...">
+            <div class="card" style="overflow: hidden;">
+                <img src="../../../assets/casas/{{casa.carpetaImg}}/{{casa.rutaImg[0]}}" class="card-img-top mb-1 rounded-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title text-center" ><p [outerHTML]="casa.nombre"></p></h5>
                     <div class="card-text" >

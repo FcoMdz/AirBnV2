@@ -1,20 +1,21 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="card-columns">
-        <div class="card-container" *ngFor="let inversion of inversionesData">
-          <div class="card card-custom">
-            <div class="card-body">
-              <h5 class="card-title">{{ inversion.name }}</h5>
-              <p class="card-text">Edad: {{ inversion.age }}</p>
-              <p class="card-text">Invirtió: {{ inversion.investment }}</p>
+    <div class="row">
+        <div class="col">
+        <div class="card-columns">
+            <div class="card-container" *ngFor="let inversion of inversionesData">
+            <div class="card card-custom">
+                <div class="card-body">
+                <h5 class="card-title">{{ inversion.name }}</h5>
+                <p class="card-text">Edad: {{ inversion.age }}</p>
+                <p class="card-text">Invirtió: {{ inversion.investment }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">"{{ inversion.happiness }}"</li>
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">"{{ inversion.happiness }}"</li>
-            </ul>
-          </div>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
+  
