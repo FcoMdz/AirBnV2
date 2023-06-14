@@ -16,9 +16,7 @@
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" routerLink="catalogo">Catálogo</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="reservaciones">Reservaciones</a>
-          </li>
+
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" routerLink="skins">Usuarios</a>
           </li>
@@ -32,19 +30,13 @@
             <a class="nav-link" routerLinkActive="active" routerLink="conocenos">Conocenos</a>
           </li>
         </ul>
-        <ul class="navbar-nav justify-content-end">
-          <li>
-            <div class="mt-2 mt-lg-0">
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" id="termino" type="search" placeholder="Search" aria-label="Search">
-                <button routerLink="busqueda/{{ busqueda }}" class="btn btn-outline-light" type="submit">Search</button>
-              </form>
-            </div>
-          </li>
-        </ul>
+        <form class="d-flex my-1 mt-lg-0" role="search">
+          <input class="form-control" id="termino" type="search" placeholder="Busqueda" aria-label="Search">
+          <button routerLink="busqueda/{{busqueda}}" class="btn btn-outline-light" type="submit">Buscar</button>
+        </form>
         <div class="btn-group">
           <button id="inicioSesion" type="button" class="btn btn-outline-info ms-lg-2 mt-2 mt-lg-0" routerLink="registro">
-            <i class="fa-solid fa-user"></i> Iniciar Sesión
+            <i class="fa-solid fa-user"></i> Iniciar Sesión/Registrarse
           </button>
           <button type="button" class="btn btn-outline-info dropdown-toggle dropdown-toggle-split me-2 me-md-0 mt-2 mt-lg-0" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="visually-hidden">Toggle Dropdown</span>
@@ -52,6 +44,9 @@
           <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end">
             <li>
               <button class="dropdown-item" routerLink="">Perfil</button>
+            </li>
+            <li class="nav-item">
+              <button id="reservar" class="dropdown-item" routerLinkActive="active" disabled routerLink="reservaciones">Reservaciones</button>
             </li>
             <li>
               <button id="cerrarSesion" class="dropdown-item" disabled routerLink="registro" (click) = "cerrarSesion()">Cerrar sesión</button>

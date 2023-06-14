@@ -1,44 +1,54 @@
-<div class="body">
-<div class="container tabla" *ngIf="verificarDatos(); else error">
-    <div class="row">
-        <div class="col text-center">
-            <h3>Reservaciones</h3>
-        </div>
+<div class="container tabla body">
+  <div class="row">
+    <div class="col text-center">
+        <h3>Reservaciones</h3>
     </div>
-    <br>
-    <div class="table-responsive">
-        <table class="table table-dark table-striped text-center">
-            <thead>
-                <tr>
-                    <th>Casa reservada</th>
-                    <th>Usuario</th>
-                    <th>Personas</th>
-                    <th>Fecha Inicio</th>
-                    <th>Fecha Final</th>
-                    <th>Total</th>
-               </tr>
-            </thead>
-            <tbody>
-                <ng-container *ngFor="let casa of data">
-                    <tr class="table-secondary " *ngFor="let info of casa">
+  </div>
+  <ng-container *ngIf="auth.currentUser; else NoUsr">
+    <div class="" *ngIf="verificarDatos(); else error">
+      <br>
+      <div class="table-responsive">
+          <table class="table table-dark table-striped text-center">
+              <thead>
+                  <tr>
+                      <th>Casa reservada</th>
+                      <th>Usuario</th>
+                      <th>Personas</th>
+                      <th>Fecha Inicio</th>
+                      <th>Fecha Final</th>
+                      <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <ng-container *ngFor="let casa of data">
+                    <ng-container *ngFor="let info of casa">
+                      <tr class="table-secondary " *ngIf="info.uid==auth.currentUser?.uid">
                         <td><img src="assets/casas/casa{{info.idCasa}}/casa{{info.idCasa}}.jpg" class="img-fluid rounded" style="max-height: 200px;" alt="Casa{{info.idCasa}}"></td>
                         <td>{{info.infoUsuario.nombre}}</td>
                         <td>{{info.cantPersonas}}</td>
                         <td>{{info.fechaInicioFormato}}</td>
                         <td>{{info.fechaFinalFormato}}</td>
                         <td>${{info.precioFormato}}</td>
-                    </tr>
-                </ng-container>
-            </tbody>
-        </table>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+              </tbody>
+          </table>
+      </div>
+  </div>
+  </ng-container>
+  <ng-template #NoUsr>
+    <div class="text-center">
+      <button type="submit" class="btn btn-outline-dark" routerLink="/registro">
+        Inicie sesión para ver esta página
+      </button>
     </div>
-    
-</div>
-<ng-template #error>
-<div class="container text-center">
-    <h1>
-        No hay datos para mostrar
-    </h1>
-</div>
-</ng-template>
+  </ng-template>
+  <ng-template #error>
+    <div class="container text-center">
+        <h1>
+            No hay reservaciones para el usuario
+        </h1>
+    </div>
+  </ng-template>
 </div>

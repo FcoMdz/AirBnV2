@@ -1,10 +1,10 @@
-<div class="container">
-    <div  class="row card mb-4 p-3 " >
-        <h2 class="">"Si lo puedes imaginar, lo puedes construir" </h2>
+<div class="container" >
+    <div  class="row card mb-4 p-3 bg-1 " @fade>
+        <h2 class="t-stroke t-shadow">"Si lo puedes imaginar, lo puedes construir" </h2>
     </div>
-    <div class="row card mb-4 p-3" >
+    <div class="row card mb-4 p-3" @fade>
 
-        <h2 class="my-2">Acerca de nuestra pagina</h2>
+        <h2 class="my-2">Nuestra Página</h2>
         <p>
           AirbnV es una pagina que renta casas de Minecraft, del famoso youtuber Samuel de
           Luque, mejor conocido como Vegetta777. Con la finalidad de que vivan la
@@ -24,14 +24,14 @@
           </div>
         </div>
       </div>
-      <div class="row mb-4 card p-3 justify-content-center centrar card" >
+      <div class="row mb-4 card p-3 justify-content-center centrar card" @fade>
         <h2>Algunas de nuestras casas</h2>
         <div class="d-flex">
           <app-cards [casas]="mostrar"></app-cards>
         </div>
-        
+
       </div>
-      <div class="row mb-4 card p-3" >
+      <div class="row mb-4 card p-3" @fade>
         <h2>Acerca del creador de las casas:</h2>
         <p>
           Samuel de Luque Batuecas (Madrid, España; 12 de abril de 1989), más conocido

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { getAuth, createUserWithEmailAndPassword, Auth, signInWithEmailAndPassword, RecaptchaVerifier, signInWithPhoneNumber, linkWithPhoneNumber, deleteUser, updateProfile } from '@angular/fire/auth';
-import { doc, getFirestore, setDoc, deleteDoc } from '@angular/fire/firestore';
+import { doc, getFirestore, setDoc, deleteDoc, collection, getDocs } from '@angular/fire/firestore';
 import { getDoc } from '@firebase/firestore';
 import { user } from 'src/app/services/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -284,7 +284,7 @@ export class RegistroComponent implements OnInit {
                   ).then(()=>{
                       this.clearSesion();
                       this.reactivarBoton(button, 'Iniciar Sesión');
-                      this.router.navigate(['home']);
+                      this.router.navigate(['catalogo']);
                     }
                   );
                 }else{
@@ -335,62 +335,78 @@ export class RegistroComponent implements OnInit {
           `;
           button.setAttribute("disabled","true");
         }
-        signInWithPhoneNumber(this.auth, phone, this.appVerifier)
-          .then((confirmResult) => {
-            Swal.fire({
-              title: 'Confirma el código',
-              html: `<input type="number" id="codigo" class="swal2-input" placeholder="Codigo de confirmación">`,
-              confirmButtonText: 'Confirmar',
-              focusConfirm: false,
-              preConfirm: () => {
-                const popup = Swal.getPopup();
-                if(popup){
-                  let recupera = <HTMLInputElement> popup.querySelector('#codigo');
-                  const login = recupera.value;
-                  if (!login) {
-                    Swal.showValidationMessage(`Introduce el código de confirmación`)
-                  }
-                  return { login: login }
-                }
-                return null;
-              }
-            }).then((result) => {
-              if(result){
-                confirmResult.confirm(result.value?.login || "")
-                  .then((confirmacion)=>{
-                    Swal.fire(
-                      'Inicio de sesión',
-                      'Se ha iniciado correctamente, ' + this.auth.currentUser?.displayName,
-                      'success'
-                    ).then(()=>{
-                        this.clearSesionwPhone();
-                        this.reactivarBoton(button, "Iniciar Sesión");
-                        this.router.navigate(['home']);
-                      }
-                    );
-                  })
-                  .catch((error)=>{
-                    Swal.fire(
-                      'Inicio de sesión',
-                      'Ha ocurrido un error: ' + error,
-                      'error').then(()=>{
-                        this.reactivarBoton(button, "Iniciar Sesión");
-                      });
-                  });
-              }
-            })
-          }).catch((error)=>{
-            Swal.fire(
-              'Inicio de sesión',
-              'Ha ocurrido un error: ' + error,
-              'error').then(()=>{
-                this.reactivarBoton(button, "Iniciar Sesión");
-              });
+        const db = getFirestore();
+        let col = collection(db, 'usuarios');
+        var band = false;
+        getDocs(col).then((usuarios)=>{
+          usuarios.forEach((usr)=>{
+            let usuario = usr.data()
+            if(usuario['telefono'] == phone){
+              band = true;
+            }
           });
+          if(band){
+            signInWithPhoneNumber(this.auth, phone, this.appVerifier)
+            .then((confirmResult) => {
+              Swal.fire({
+                title: 'Confirma el código',
+                html: `<input type="number" id="codigo" class="swal2-input" placeholder="Codigo de confirmación">`,
+                confirmButtonText: 'Confirmar',
+                focusConfirm: false,
+                preConfirm: () => {
+                  const popup = Swal.getPopup();
+                  if(popup){
+                    let recupera = <HTMLInputElement> popup.querySelector('#codigo');
+                    const login = recupera.value;
+                    if (!login) {
+                      Swal.showValidationMessage(`Introduce el código de confirmación`)
+                    }
+                    return { login: login }
+                  }
+                  return null;
+                }
+              }).then((result) => {
+                if(result){
+                  confirmResult.confirm(result.value?.login || "")
+                    .then((confirmacion)=>{
+                      Swal.fire(
+                        'Inicio de sesión',
+                        'Se ha iniciado correctamente, ' + this.auth.currentUser?.displayName,
+                        'success'
+                      ).then(()=>{
+                          this.clearSesionwPhone();
+                          this.reactivarBoton(button, "Iniciar Sesión");
+                          this.router.navigate(['catalogo']);
+                        }
+                      );
+                    })
+                    .catch((error)=>{
+                      Swal.fire(
+                        'Inicio de sesión',
+                        'Ha ocurrido un error: ' + error,
+                        'error').then(()=>{
+                          this.reactivarBoton(button, "Iniciar Sesión");
+                        });
+                    });
+                }
+              })
+            }).catch((error)=>{
+              Swal.fire(
+                'Inicio de sesión',
+                'Ha ocurrido un error: ' + error,
+                'error').then(()=>{
+                  this.reactivarBoton(button, "Iniciar Sesión");
+                });
+            });
+          }else{
+            Swal.fire('Inicio de sesión', 'Debe estar registrado para iniciar sesión con un número telefonico', 'error').then(()=>{
+              this.reactivarBoton(button, "Iniciar Sesión");
+            });;
+          }
+        });
       }else{
         Swal.fire('Inicio de sesión', 'Verifique que los datos estén completos', 'error');
       }
-
     }else {
       Swal.fire('Inicio de sesión', 'Verifique que los datos estén completos', 'error');
     }

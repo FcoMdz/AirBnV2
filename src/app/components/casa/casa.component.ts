@@ -157,6 +157,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
           ).then(()=>{
             Swal.fire('Apartado Confirmado','Se ha registrado su apartado','success');
             this.actualizarFechasDisponibles();
+
           }).catch((error)=>{
             Swal.fire('Error','Ha ocurrido un error' + error,'error');
           });

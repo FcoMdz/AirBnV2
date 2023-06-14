@@ -45,9 +45,9 @@
                     </div>
                 </div>
                 <div class="col col-12 col-lg-8 col-xl-9">
-                    <div *ngIf="resultadosFiltrados.length != 0; else sinFiltro">
+                    <ng-container *ngIf="resultadosFiltrados.length != 0; else sinFiltro">
                         <app-cards [casas]="resultadosFiltrados"></app-cards>
-                    </div>
+                    </ng-container>
                     <ng-template #sinFiltro>
                         <h1 class="text-center my-5">No hay resultados que cumplan los filtros</h1>
                     </ng-template>

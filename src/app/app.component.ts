@@ -61,11 +61,13 @@ export class AppComponent implements OnInit{
   initUserManage():void{
     let btnRegistro = document.getElementById("inicioSesion");
     let btnCerrar = document.getElementById("cerrarSesion");
+    let btnReservas = document.getElementById("reservar");
     onAuthStateChanged(this.auth, (user) => {
-      if(user && btnRegistro && btnCerrar){
+      if(user && btnRegistro && btnCerrar && btnReservas){
         btnRegistro.innerHTML = "Bienvenido, " + this.auth.currentUser?.displayName;
         btnRegistro.setAttribute("disabled", "true");
         btnCerrar.removeAttribute("disabled");
+        btnReservas.removeAttribute("disabled");
       }else if(btnRegistro && btnCerrar){
         btnRegistro.innerHTML = '<i class="fa-solid fa-user"></i> Iniciar Sesión';
         btnRegistro.removeAttribute("disabled");
