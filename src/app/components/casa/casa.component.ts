@@ -77,7 +77,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
 
   actualizarFechasDisponibles():void{
     let infoCasas:casasData[];
-    this.casaService.consultaFechasCasas(this.casa.id).then((fechas) =>{
+    this.casaService.consultaFechasCasa(this.casa.id).then((fechas) =>{
       let fechasDeshabilitar: Date[] = [];
       fechas.forEach((rangoFechas)=>{
         let fechaInicio = new Date(rangoFechas[0]);
@@ -139,7 +139,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
         fechaSeleccionadaInicio = this.reserva.value.fecha[0];
         fechaSeleccionadaFinal = this.reserva.value.fecha[1];
       }
-      this.casaService.consultaFechasCasas(this.casa.id).then(async (fechas)=>{
+      this.casaService.consultaFechasCasa(this.casa.id).then(async (fechas)=>{
         let band:boolean = false;
         fechas.forEach(apartado => {
           if(apartado[1] >= fechaSeleccionadaInicio && apartado[0] <= fechaSeleccionadaFinal){

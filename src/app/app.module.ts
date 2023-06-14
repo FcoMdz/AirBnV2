@@ -42,6 +42,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
+import { InversionesComponent } from './components/inversiones/inversiones.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,7 @@ import { CatalogoComponent } from './components/catalogo/catalogo.component';
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage())
   ],
-  providers: [CasasService, ScreenTrackingService,UserTrackingService],
+  providers: [CasasService, ScreenTrackingService, UserTrackingService, InversionesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

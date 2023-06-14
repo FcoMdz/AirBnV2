@@ -27,5 +27,5 @@ import { Component } from '@angular/core';
   ]
 })
 export class ConocenosComponent {
-  link: string="AMWvGHsD4rA";
+  
 }
