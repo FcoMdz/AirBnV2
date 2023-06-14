@@ -8,7 +8,7 @@
                             <label class="text-center" for="ciudades"><strong >Ubicacion</strong></label>
                             <hr>
                             <div class="text-center mb-2">
-                                <p-dropdown [options]="ciudades" [showClear]="true" placeholder="Selecciona un bioma" [(ngModel)]="ciudadSeleccionada" optionLabel="name" (onClear)="filtrarResultados()" (onClick)="filtrarResultados()"></p-dropdown>
+                                <p-dropdown [options]="ciudades" [showClear]="true" placeholder="Selecciona un bioma" [(ngModel)]="ciudadSeleccionada" optionLabel="name" (onClear)="filtrarResultados()" (onChange)="filtrarResultados()"></p-dropdown>
                             </div>
                         </div>
                         <div class="card flex justify-content-center mt-2">
@@ -18,7 +18,7 @@
                                 <p class="col-6 text-center">Min: ${{rangeValues[0]}}</p>
                                 <p class="col-6 text-center">Max: ${{rangeValues[1]}}</p>
                             </div>
-                            <p-slider id="slider" [(ngModel)]="rangeValues" [range]="true" [max]="maxValue" [min]="minValue" (onChange)="filtrarResultados()"></p-slider>
+                            <p-slider id="slider" [(ngModel)]="rangeValues" [range]="true" [animate]="true" [max]="maxValue" [min]="minValue" (onSlideEnd)="filtrarResultados()"></p-slider>
                         </div>
                         <div class="card flex justify-content-center mt-2 text-center">
                             <label for="calendario"><strong class="text-center">Fechas disponibles</strong></label>
@@ -62,4 +62,4 @@
         <h1 class="text-center my-5">Ingrese un término de busqueda</h1>
     </ng-template>
   </div>
-  
+

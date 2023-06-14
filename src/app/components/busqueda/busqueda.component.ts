@@ -29,6 +29,7 @@ export class BusquedaComponent implements OnInit {
   ciudades: Bioma[] = [];
   ciudadSeleccionada: Bioma = { name: "", code: "" };
   infoCasas:casasData[]=[];
+  modal:any = Swal;
 
   tags: string[] = [];
   tagsSeleccion: string[] = [];
@@ -97,9 +98,8 @@ export class BusquedaComponent implements OnInit {
   }
 
   filtrarResultados():void{
-    let modal = Swal;
     if(this.rangeDates!=undefined){
-      modal.fire({
+      this.modal.fire({
         title: 'Filtrando',
         html: 'Se estan filtrando los resultados',
         didOpen: ()=>{
@@ -110,9 +110,9 @@ export class BusquedaComponent implements OnInit {
     }
     this.filtrarResultadosAsync().then((res)=>{
       this.resultadosFiltrados = res;
-      if(this.rangeDates!=undefined) modal.close();
+      if(this.rangeDates!=undefined) this.modal.close();
     }).catch((error)=>{
-      if(this.rangeDates!=undefined) modal.close();
+      if(this.rangeDates!=undefined) this.modal.close();
     });
   }
 
