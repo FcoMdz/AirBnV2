@@ -2,7 +2,7 @@ import { EmptyExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { CasasService } from 'src/app/services/casas.service';
 import { LocalStorageService, casasData } from 'src/app/services/local-storage.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-reservaciones',
   templateUrl: './reservaciones.component.html',
@@ -16,7 +16,19 @@ export class ReservacionesComponent implements OnInit{
   }
 
   async ngOnInit() {
-    this.data = await this.casasService.consultaApartadosCasas();
+    let modal = Swal;
+    modal.fire({
+      title: 'Cargando',
+      html: 'Se estan cargando las reservaciones',
+      didOpen: ()=>{
+        Swal.showLoading();
+      },
+      allowOutsideClick: false
+    });
+    await this.casasService.consultaApartadosCasas().then((data)=>{
+      this.data = data;
+      modal.close();
+    });
   }
   
 
