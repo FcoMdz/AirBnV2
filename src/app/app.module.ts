@@ -58,6 +58,7 @@ import { InversionesComponent } from './components/inversiones/inversiones.compo
     ReservacionesComponent,
     SkinsComponent,
     CatalogoComponent,
+    InversionesComponent
   ],
   imports: [
     BrowserModule,
