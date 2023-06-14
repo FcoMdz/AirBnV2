@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getFirestore, getDocs, Firestore, collection, query, where, setDoc, CollectionReference, doc, addDoc } from '@angular/fire/firestore';
+import { getFirestore, getDocs, Firestore, collection, query, where, setDoc, CollectionReference, doc, addDoc, getDocFromServer, collectionGroup } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class CasasService {
   db:Firestore = getFirestore();
   collection:CollectionReference = collection(this.db,'casas');
 
-  async consultaFechasCasas(idCasa:number){
+  async consultaFechasCasa(idCasa:number){
     let referencia = collection(this.collection, idCasa.toString(), 'apartado');
     let apartados = await getDocs(referencia);
     let fechas:[Date[]] = [[]];
@@ -21,6 +21,24 @@ export class CasasService {
     fechas.shift();
     return fechas;
   }
+
+  async consultarFechasCasas(){
+    let referencia = query(collectionGroup(this.db, 'apartado'));
+    let apartados = await getDocs(referencia);
+    let fechas:FechasCasas[] = [];
+    apartados.forEach((apartado)=>{
+      let data = apartado.data();
+      let idCasa = Number.parseInt(apartado.ref.path.split('/')[1]);
+      fechas.push({
+        fechaFinal: new Date(data["fechaFinal"]),
+        fechaInicio: new Date(data["fechaInicio"]),
+        idCasa: idCasa
+      });
+    })
+    return fechas;
+  }
+
+
 
   async ingresarFechasCasas(idCasa:number, fechaInicio:Date, fechaFinal:Date, uid:string, cantPersonas:number, precio:number){
     let data = {
@@ -215,4 +233,10 @@ export interface Casa {
 export interface Bioma {
   name: string;
   code: string;
+}
+
+export interface FechasCasas{
+  fechaInicio: Date;
+  fechaFinal: Date;
+  idCasa: number;
 }

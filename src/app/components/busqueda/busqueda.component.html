@@ -8,7 +8,7 @@
                           <label class="text-center" for="ciudades"><strong >Ubicacion</strong></label>
                           <hr>
                           <div class="text-center mb-2">
-                              <p-dropdown [options]="ciudades" [showClear]="true" placeholder="Selecciona un bioma" [(ngModel)]="ciudadSeleccionada" optionLabel="name" (onChange)="filtrarResultados()"></p-dropdown>
+                              <p-dropdown [options]="ciudades" [showClear]="true" placeholder="Selecciona un bioma" [(ngModel)]="ciudadSeleccionada" optionLabel="name" (onClear)="filtrarResultados()" (onClick)="filtrarResultados()"></p-dropdown>
                           </div>
                       </div>
                       <div class="card flex justify-content-center mt-2">
@@ -23,7 +23,7 @@
                       <div class="card flex justify-content-center mt-2 text-center">
                           <label for="calendario"><strong class="text-center">Fechas disponibles</strong></label>
                           <hr>
-                          <p-calendar dateFormat="dd/mm/yy" inputId="calendario" class="mb-2" [(ngModel)]="rangeDates" selectionMode="range" [minDate]="minDate" [readonlyInput]="true" (onSelect)="filtrarResultados()"></p-calendar>
+                          <p-calendar dateFormat="dd/mm/yy" inputId="calendario" class="mb-2" [(ngModel)]="rangeDates" selectionMode="range" [minDate]="minDate" [readonlyInput]="true" (onClose)="filtrarResultados()"></p-calendar>
                       </div>
                       <div class="card flex justify-content-center mt-2 text-center">
                           <label for="minmax"><strong class="text-center">Cantidad Personas</strong></label>
