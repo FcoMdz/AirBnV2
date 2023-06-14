@@ -1,5 +1,6 @@
 import { EmptyExpr } from '@angular/compiler';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CasasService } from 'src/app/services/casas.service';
 import { LocalStorageService, casasData } from 'src/app/services/local-storage.service';
 
 @Component({
@@ -7,18 +8,20 @@ import { LocalStorageService, casasData } from 'src/app/services/local-storage.s
   templateUrl: './reservaciones.component.html',
   styleUrls: ['./reservaciones.component.css']
 })
-export class ReservacionesComponent {
+export class ReservacionesComponent implements OnInit{
   data!:any;
   informacion!:any;
-  constructor(){
-    this.data =  localStorage.getItem('casasData');
-    if(this.data != null){
-      this.informacion = JSON.parse(this.data);
-    }
-
+  constructor(private casasService:CasasService){
+    
   }
 
-  verififcarDatos():boolean{
+  async ngOnInit() {
+    this.data = await this.casasService.consultaApartadosCasas();
+  }
+  
+
+
+  verificarDatos():boolean{
     if(this.data == null){
       return false;
     }

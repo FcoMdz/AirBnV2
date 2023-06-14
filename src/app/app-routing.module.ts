@@ -9,6 +9,7 @@ import { DudasComponent } from './dudas/dudas.component';
 import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
 import { SkinsComponent } from './components/skins/skins.component';
 import { ComoUsarComponent } from './components/como-usar/como-usar.component';
+import { CatalogoComponent } from './components/catalogo/catalogo.component';
 
 const routes: Routes = [
   { path: 'busqueda/:termino', component: BusquedaComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'skins', component: SkinsComponent },
   { path: 'home', component: PrincipalComponent },
   { path: 'comoUsar', component: ComoUsarComponent },
+  {path: 'catalogo', component: CatalogoComponent},
   { path: '', component: PrincipalComponent }
 ];
 
