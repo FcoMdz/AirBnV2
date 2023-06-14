@@ -1,12 +1,3 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-
-<div class="card-columns" >
-    <div class="card" *ngFor="let nombre of nombres">
-        <img [src]="nombre" class="card-img-top" alt="...">
-        <div class="card-body">
-        <h5 class="card-title">Violet Evergarden</h5>
-        <p class="card-text">Ilustraciones de Violet Evergarden ewxplicando un poco sobre la serie.</p>
-        <p class="card-text"><small class="text-muted">Es de animación japonesa</small></p>
-        </div>
-    </div>
+<div class="body">
+<app-cards [casas]="casas"></app-cards>
 </div>

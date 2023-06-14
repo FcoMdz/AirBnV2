@@ -1,0 +1,44 @@
+nav{
+    background-color: #3B0D96;
+}
+
+footer{
+    background-color: #3B0D96;
+    color: #FFFFFF;
+    width: 100%;
+}
+
+.todo{
+
+        display: flex;
+        flex-direction: column;
+      
+}
+.nav777{
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    margin: auto auto;
+}
+.social{
+    text-align:center;
+
+    font-size:24px;
+    width:40px;
+    height:40px;
+    line-height:40px;
+    display:flex;
+    text-align:center;
+    color: #ccc;
+    margin:8px;
+    opacity:0.75;
+}
+i{
+    font-size:24px;
+    margin:8px;
+    width:40px;
+    height:40px;
+    color: rgb(255, 255, 255);
+}
+.social > a:hover {
+    opacity:0.9;
+  }
