@@ -76,6 +76,20 @@ export class AppComponent implements OnInit{
 
   initAccessibility():void{
     var opt = new Accessibility({
+      modules: {
+        increaseText: true,
+        decreaseText: true,
+        invertColors: true,
+        increaseTextSpacing: true,
+        decreaseTextSpacing: true,
+        grayHues: true,
+        underlineLinks: false,
+        bigCursor: false,
+        readingGuide: false,
+        textToSpeech: true,
+        speechToText: false,
+        disableAnimations: false
+      },
       language: {
         textToSpeechLang: 'es-MX',
         speechToTextLang: 'es-MX'

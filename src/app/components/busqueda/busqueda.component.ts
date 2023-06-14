@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { elementAt } from 'rxjs';
 import { Bioma, Casa, CasasService } from 'src/app/services/casas.service';
 import { casasData } from 'src/app/services/local-storage.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-busqueda',
@@ -83,46 +83,18 @@ export class BusquedaComponent implements OnInit {
       }
       this.rangeValues = [this.minValue, this.maxValue];
       this.resultadosFiltrados = this.resultados;
-      /*if(localStorage.getItem("casasData") != null){
+      if(localStorage.getItem("casasData") != null){
         this.infoCasas = JSON.parse(localStorage.getItem('casasData') || "{}");
       }else{
         this.infoCasas = [];
-      }*/
-      this.filtrarResultadosAsync().then((res)=>{
-        this.resultadosFiltrados = res;
-      }).catch((error)=>{
-        console.log(error);
-      });
+      }
+      this.filtrarResultados();
     });
   }
 
-  filtrarResultados():void{
-    let modal = Swal;
-    if(this.rangeDates!=undefined){
-      modal.fire({
-        title: 'Filtrando',
-        html: 'Se estan filtrando los resultados',
-        didOpen: ()=>{
-          Swal.showLoading();
-        },
-        allowOutsideClick: false
-      });
-    }
-    this.filtrarResultadosAsync().then((res)=>{
-      this.resultadosFiltrados = res;
-      if(this.rangeDates!=undefined) modal.close();
-    }).catch((error)=>{
-      if(this.rangeDates!=undefined) modal.close();
-    });
-  }
-
-
-  async filtrarResultadosAsync(): Promise<Casa[]> {
-
-
+  filtrarResultados(): void {
     if (this.ciudadSeleccionada == null) this.ciudadSeleccionada = { name: "", code: "" };
-
-    let resultadosFiltrados = [];
+    this.resultadosFiltrados = [];
 
     for (let i = 0; i < this.resultados.length; i++) {
 
@@ -152,10 +124,13 @@ export class BusquedaComponent implements OnInit {
       }
 
       //Comprobando disponibilidad de fechas
-      let band = false;
+      let band = false
       if(this.rangeDates!=undefined){
-        await this.casasService.consultaFechasCasa(element.id).then((fechas)=>{
-          fechas.forEach((fecha) => {
+        for (let index = 0; index < this.infoCasas.length; index++) {
+          const apartado = this.infoCasas[index];
+          if(apartado.id == element.id){
+            let fechaInicio = new Date(apartado.fechaInicio);
+            let fechaFinal = new Date(apartado.fechaFinal);
             let fechaBusquedaInicio;
             let fechaBusquedaFinal;
             if(this.rangeDates[1] == null){
@@ -165,16 +140,16 @@ export class BusquedaComponent implements OnInit {
               fechaBusquedaInicio = new Date(this.rangeDates[0].toDateString());
               fechaBusquedaFinal = new Date(this.rangeDates[1].toDateString());
             }
-            if(fecha[1] >= fechaBusquedaInicio && fecha[0] <= fechaBusquedaFinal){
+            if(fechaFinal >= fechaBusquedaInicio && fechaInicio <= fechaBusquedaFinal){
               band = true;
             }
-          })
-        });
+          }
+        }
       }
       if(band) continue;
-      resultadosFiltrados.push(element);
+
+      this.resultadosFiltrados.push(element);
     }
-    return resultadosFiltrados;
   }
 
 }
