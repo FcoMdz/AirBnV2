@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,10 @@ import { Injectable } from '@angular/core';
 })
 export class SendmailService {
 
-  constructor() { }
+  constructor(private httpClient:HttpClient) {
+
+   }
+   alta(url:string,body:any){
+    return this.httpClient.post(url,body).toPromise();
+  }
 }

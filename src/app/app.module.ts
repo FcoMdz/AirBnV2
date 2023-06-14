@@ -30,7 +30,7 @@ import { ConocenosComponent } from './components/conocenos/conocenos.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { VideoPipe } from './video.pipe';
-import { DudasComponent } from './dudas/dudas.component';
+import { DudasComponent } from './components/dudas/dudas.component';
 import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
 import { SkinsComponent } from './components/skins/skins.component';
 
@@ -44,6 +44,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { InversionesComponent } from './components/inversiones/inversiones.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { SendmailService } from './services/sendmail.service';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
@@ -91,7 +93,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [CasasService, ScreenTrackingService, UserTrackingService, InversionesComponent],
+  providers: [CasasService, ScreenTrackingService, UserTrackingService, SendmailService, InversionesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
