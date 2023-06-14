@@ -174,7 +174,6 @@ export class BusquedaComponent implements OnInit {
       if(band) continue;
       resultadosFiltrados.push(element);
     }
-
     return resultadosFiltrados;
   }
 
