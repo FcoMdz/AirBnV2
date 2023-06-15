@@ -158,7 +158,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
           ).then(()=>{
             Swal.fire('Apartado Confirmado','Se ha registrado su apartado','success');
             this.actualizarFechasDisponibles();
-            correo();
+            this.correo(fechaSeleccionadaInicio,fechaSeleccionadaFinal);
           }).catch((error)=>{
             Swal.fire('Error','Ha ocurrido un error' + error,'error');
           });
@@ -179,10 +179,12 @@ export class CasaComponent implements OnInit, AfterViewInit {
     if(this.auth.currentUser) return true;
     return false;
   }
-  correo() {
+  correo(fechaInicio:Date,fechaFinal:Date) {
     let body = {
       casa:this.casa,
-      usr:this.auth.currentUser
+      usr:this.auth.currentUser,
+      fechaInicio:fechaInicio,
+      fechaFinal:fechaFinal
     }
     this.sendmail.alta('http://localhost:3000/reserva',body);
   }
