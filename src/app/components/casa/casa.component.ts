@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import * as L from 'leaflet';
 import { Auth, getAuth } from '@angular/fire/auth';
 import { SendmailService } from 'src/app/services/sendmail.service';
+import { DatePipe, formatDate } from '@angular/common';
+import { locale } from 'numeral';
 @Component({
   selector: 'app-casa',
   templateUrl: './casa.component.html',
@@ -158,7 +160,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
           ).then(()=>{
             Swal.fire('Apartado Confirmado','Se ha registrado su apartado','success');
             this.actualizarFechasDisponibles();
-            this.correo(fechaSeleccionadaInicio,fechaSeleccionadaFinal);
+            this.correo(fechaSeleccionadaInicio ,fechaSeleccionadaFinal);
           }).catch((error)=>{
             Swal.fire('Error','Ha ocurrido un error' + error,'error');
           });
@@ -180,11 +182,13 @@ export class CasaComponent implements OnInit, AfterViewInit {
     return false;
   }
   correo(fechaInicio:Date,fechaFinal:Date) {
+     let fechaInicioS = formatDate(fechaInicio,"dd-MM-yyyy","en-US");
+     let fechaFinalS = formatDate(fechaFinal,"dd-MM-yyyy","en-US");
     let body = {
       casa:this.casa,
       usr:this.auth.currentUser,
-      fechaInicio:fechaInicio,
-      fechaFinal:fechaFinal
+      fechaInicio:fechaInicioS,
+      fechaFinal:fechaFinalS
     }
     this.sendmail.alta('http://localhost:3000/reserva',body);
   }
