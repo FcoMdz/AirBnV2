@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getFirestore, getDocs, getDoc, Firestore, collection, query, where, setDoc, CollectionReference, doc, addDoc, collectionGroup } from '@angular/fire/firestore';
+import { getFirestore, getDocs, getDoc, Firestore, collection, query, where, setDoc, CollectionReference, doc, addDoc, collectionGroup, deleteDoc } from '@angular/fire/firestore';
 import * as numeral from 'numeral';
 
 @Injectable({
@@ -39,10 +39,10 @@ export class CasasService {
   }
 
   async consultaApartadosCasas(){
-    var reservaciones:any[] = [];
+    var reservaciones:[any[]] = [[]];
     for (let i = 0; i < this.casas.length; i++) {
       const element = this.casas[i];
-      reservaciones[element.id] = [];
+      reservaciones[(element.id-1)] = [];
       let referencia = collection(this.collection, element.id.toString(), 'apartado');
       let apartados = await getDocs(referencia);
       var j = 0;
@@ -54,10 +54,10 @@ export class CasasService {
         reservacion["fechaInicioFormato"] = new Date(reservacion['fechaInicio']).toLocaleDateString();
         reservacion["fechaFinalFormato"] = new Date(reservacion['fechaFinal']).toLocaleDateString();
         reservacion["precioFormato"] = numeral(reservacion['precio']).format('0,0.00');
-        reservaciones[element.id][j++] = reservacion;
+        reservacion["idDocumento"] = document.id;
+        reservaciones[(element.id-1)][j++] = reservacion;
       });
     }
-    reservaciones.shift();
     return reservaciones;
   }
 
@@ -72,6 +72,11 @@ export class CasasService {
     }
     let referencia = collection(this.collection, idCasa.toString(), 'apartado');
     await addDoc(referencia, data);
+  }
+
+  async darBajaFecha(idCasa:string,idDocumento:string){
+    let ref = doc(this.collection, idCasa, 'apartado', idDocumento);
+    await deleteDoc(ref);
   }
 
   casas:Casa [] = [
