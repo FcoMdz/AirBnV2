@@ -3,6 +3,7 @@ import { Auth, getAuth, onAuthStateChanged, signOut } from '@angular/fire/auth';
 import { PrimeNGConfig } from 'primeng/api';
 import { Accessibility } from 'accessibility/dist/main';
 import Swal from 'sweetalert2';
+import { UsuariosService } from './services/usuarios.service';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,11 @@ export class AppComponent implements OnInit{
   termino:HTMLInputElement | undefined;
   busqueda:string = "";
 
+  usuarioAdmin:boolean = false;
+
   auth:Auth = getAuth();
 
-  constructor(private primengConfig: PrimeNGConfig){
+  constructor(private primengConfig: PrimeNGConfig, private usuariosService:UsuariosService){
 
   }
 
@@ -62,16 +65,26 @@ export class AppComponent implements OnInit{
     let btnRegistro = document.getElementById("inicioSesion");
     let btnCerrar = document.getElementById("cerrarSesion");
     let btnReservas = document.getElementById("reservar");
+    let btnGraficas = document.getElementById("graficas");
     onAuthStateChanged(this.auth, (user) => {
       if(user && btnRegistro && btnCerrar && btnReservas){
         btnRegistro.innerHTML = "Bienvenido, " + this.auth.currentUser?.displayName;
         btnRegistro.setAttribute("disabled", "true");
         btnCerrar.removeAttribute("disabled");
         btnReservas.removeAttribute("disabled");
+        this.usuarioAdmin = false;
+        if(this.auth.currentUser){
+          this.usuariosService.getUsuario(this.auth.currentUser.uid).then((usuario:any) =>{
+            if(usuario && usuario.admin){
+              this.usuarioAdmin = true;
+            }
+          });
+        }
       }else if(btnRegistro && btnCerrar){
         btnRegistro.innerHTML = '<i class="fa-solid fa-user"></i> Iniciar Sesión';
         btnRegistro.removeAttribute("disabled");
         btnCerrar.setAttribute("disabled", "true");
+        this.usuarioAdmin = false;
       }
     });
   }
