@@ -44,7 +44,6 @@ export class PrincipalComponent implements OnInit {
         numeros.push(numero);
       }
     }
-    console.log(numeros)
     for(let i=0;i<5;i++){
       this.mostrar[i]=this.casas[numeros[i]];
     }

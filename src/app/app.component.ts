@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'proyecto';
+  title = 'AirbnV';
   //Busqueda
   termino:HTMLInputElement | undefined;
   busqueda:string = "";

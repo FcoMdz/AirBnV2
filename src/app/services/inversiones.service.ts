@@ -4,11 +4,10 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class InversionesService {
-
+  urlBase:string = "https://api-cvwcbtm6xa-uc.a.run.app";
   constructor(public httpClient: HttpClient) {}
 
   getJSON(url: string) {
-    let base = "https://nodejs-vegetta777-gerardo1209.onrender.com"
-    return this.httpClient.get(`${base}${url}`);
+    return this.httpClient.get(this.urlBase+url);
   }
 }

@@ -181,8 +181,8 @@ export class CasaComponent implements OnInit, AfterViewInit {
     return false;
   }
   correo(fechaInicio:Date,fechaFinal:Date) {
-     let fechaInicioS = formatDate(fechaInicio,"dd-MM-yyyy","en-US");
-     let fechaFinalS = formatDate(fechaFinal,"dd-MM-yyyy","en-US");
+    let fechaInicioS = formatDate(fechaInicio,"dd-MM-yyyy","en-US");
+    let fechaFinalS = formatDate(fechaFinal,"dd-MM-yyyy","en-US");
     let body = {
       casa:this.casa,
       usr:this.auth.currentUser,
