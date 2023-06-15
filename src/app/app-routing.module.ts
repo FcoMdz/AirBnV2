@@ -5,7 +5,7 @@ import { PrincipalComponent } from './components/principal/principal.component';
 import { CasaComponent } from './components/casa/casa.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { ConocenosComponent } from './components/conocenos/conocenos.component';
-import { DudasComponent } from './dudas/dudas.component';
+import { DudasComponent } from './components/dudas/dudas.component';
 import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
 import { SkinsComponent } from './components/skins/skins.component';
 import { ComoUsarComponent } from './components/como-usar/como-usar.component';
