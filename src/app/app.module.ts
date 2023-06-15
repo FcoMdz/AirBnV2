@@ -47,6 +47,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { SendmailService } from './services/sendmail.service';
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
 
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +70,7 @@ import { ContactanosComponent } from './components/contactanos/contactanos.compo
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    QRCodeModule,
     AppRoutingModule,
     FormsModule,
     SliderModule,
