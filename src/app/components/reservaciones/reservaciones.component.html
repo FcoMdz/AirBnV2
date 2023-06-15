@@ -17,6 +17,7 @@
                       <th>Fecha Inicio</th>
                       <th>Fecha Final</th>
                       <th>Total</th>
+                      <th>Cancelar Reservacion</th>
                 </tr>
               </thead>
               <tbody>
@@ -29,6 +30,12 @@
                         <td>{{info.fechaInicioFormato}}</td>
                         <td>{{info.fechaFinalFormato}}</td>
                         <td>${{info.precioFormato}}</td>
+                        <ng-container *ngIf="fechaMayor(info.fechaInicio); else eliminar">
+                          <td><i class="fa-solid fa-circle-info fa-2xl" style="cursor:pointer" (click)="fechaMayorInfo()"></i></td>
+                        </ng-container>
+                        <ng-template #eliminar>
+                          <td><i class="fa-solid fa-rectangle-xmark fa-2xl" style="cursor:pointer;" (click)="eliminarReservacion(info.idCasa, info.idDocumento)"></i></td>
+                        </ng-template>
                       </tr>
                     </ng-container>
                   </ng-container>
