@@ -1,15 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, AfterViewInit, HostListener } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { max, retry } from 'rxjs';
 import { Casa, CasasService } from 'src/app/services/casas.service';
-import { LocalStorageService, casasData } from 'src/app/services/local-storage.service';
+import { casasData } from 'src/app/services/local-storage.service';
 import Swal from 'sweetalert2';
 import * as L from 'leaflet';
 import { Auth, getAuth } from '@angular/fire/auth';
 import { SendmailService } from 'src/app/services/sendmail.service';
-import { DatePipe, formatDate } from '@angular/common';
-import { locale } from 'numeral';
+import { formatDate } from '@angular/common';
+
 @Component({
   selector: 'app-casa',
   templateUrl: './casa.component.html',
@@ -190,7 +189,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
       fechaInicio:fechaInicioS,
       fechaFinal:fechaFinalS
     }
-    this.sendmail.alta('http://localhost:3000/reserva',body);
+    this.sendmail.alta(this.sendmail.urlBase+'/reserva',body);
   }
 
 }

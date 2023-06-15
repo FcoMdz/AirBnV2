@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SendmailService {
-
+  urlBase:string = "https://api-cvwcbtm6xa-uc.a.run.app";
   constructor(private httpClient:HttpClient) {
 
    }
