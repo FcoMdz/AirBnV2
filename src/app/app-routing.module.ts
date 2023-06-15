@@ -11,6 +11,7 @@ import { SkinsComponent } from './components/skins/skins.component';
 import { ComoUsarComponent } from './components/como-usar/como-usar.component';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { InversionesComponent } from './components/inversiones/inversiones.component';
+import { ContactanosComponent } from './components/contactanos/contactanos.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'home', component: PrincipalComponent },
   { path: 'comoUsar', component: ComoUsarComponent },
   {path: 'catalogo', component: CatalogoComponent},
+  {path: 'contactanos', component: ContactanosComponent},
   { path: '', component: PrincipalComponent }
 ];
 

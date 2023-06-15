@@ -45,6 +45,7 @@ import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { InversionesComponent } from './components/inversiones/inversiones.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { SendmailService } from './services/sendmail.service';
+import { ContactanosComponent } from './components/contactanos/contactanos.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { SendmailService } from './services/sendmail.service';
     ReservacionesComponent,
     SkinsComponent,
     CatalogoComponent,
-    InversionesComponent
+    InversionesComponent,
+    ContactanosComponent
   ],
   imports: [
     BrowserModule,
