@@ -1,8 +1,6 @@
-import { EmptyExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Auth, getAuth } from '@angular/fire/auth';
 import { CasasService } from 'src/app/services/casas.service';
-import { LocalStorageService, casasData } from 'src/app/services/local-storage.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-reservaciones',
