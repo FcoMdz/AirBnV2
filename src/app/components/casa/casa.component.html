@@ -68,7 +68,7 @@
         <form [formGroup]="reserva" (ngSubmit)="registrarReserva()">
           <div class="justify-content-center text-center" id="formulario">
             <div class="m-2">
-              <label class="form-control mb-2" for="calendario">Fechas</label>
+              <label  (click)="infoFechas()" class="form-control mb-2" for="calendario">Fechas <i class="fa-solid fa-circle-question"></i></label>
               <p-calendar
                 dateFormat="dd/mm/yy"
                 formControlName="fecha"

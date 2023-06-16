@@ -96,6 +96,14 @@ export class CasaComponent implements OnInit, AfterViewInit {
     })
   }
 
+  infoFechas(){
+    Swal.fire({
+      title: '¿Cómo seleccionar las fechas?',
+      text: 'Primero da click en la fecha en la que quieres empezar a disfrutar la casa, una vez seleccionada en morado, da click en la fecha en la que cederas ese placer a otra persona. Se seleccionará un rango de fechas marcadas en morado indicando que todos esos días reservarás la casa ¡para ti y tus amigos!',
+      icon: 'question'
+    });
+  }
+
   ngOnInit(){
     this.fecha = this.fechaActual.toLocaleString();
     this.casaService.casas.forEach(casita => {
