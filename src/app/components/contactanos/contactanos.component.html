@@ -8,23 +8,30 @@
                 proporcionarnos los siguientes datos y tus comentarios en los cambos de aquí abajo 😊
             </p>
             <div class="row g-3">
-                <div class="col">
-                    <label for="exampleFormControlInput1" class="form-label">Ingrese su primer nombre</label>
-                  <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre">
-                </div>
-                <div class="col">
-                    <label for="exampleFormControlInput1" class="form-label">Ingrese su primer apellido</label>
-                  <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido">
-                </div>
+              <div class="col">
+                  <label for="nombre" class="form-label">Ingrese su primer nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" name="nombre" id="nombre">
+              </div>
+              <div class="col">
+                  <label for="apellido" class="form-label">Ingrese su primer apellido</label>
+                <input type="text" class="form-control" placeholder="Apellido" aria-label="Apellido" name="apellido" id="apellido">
+              </div>
+          </div>
+          <div class="row g-3">
+            <div class="col">
+                <label for="correo" class="form-label" >Ingrese su correo por favor</label>
+              <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Nombre" name="correo" id="correo">
             </div>
+
+        </div>
             <div class="mb-3">
               <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Escribenos tus sugerencias aquí 👇</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="sugerencia" class="form-label">Escribenos tus sugerencias aquí 👇</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="sugerencia" id="sugerencia"></textarea>
               </div>
             </div>
             <div class="d-grid gap-2">
-                <button type="button" class="btn btn-outline-info">Enviar</button>
+                <button type="button" class="btn btn-outline-info" (click)="EnviarCorreo()">Enviar</button>
             </div>
       </div>
 </div>
