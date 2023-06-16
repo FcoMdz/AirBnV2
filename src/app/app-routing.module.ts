@@ -14,6 +14,7 @@ import { InversionesComponent } from './components/inversiones/inversiones.compo
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
 import { OtrosComponent } from './components/otros/otros.component';
 import { MiembrosComponent } from './components/miembros/miembros.component';
+import { IniciarComponent } from './components/iniciar/iniciar.component';
 
 const routes: Routes = [
   { path: 'busqueda/:termino', component: BusquedaComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'catalogo', component: CatalogoComponent },
   { path: 'contactanos', component: ContactanosComponent },
   { path: 'miembros', component: MiembrosComponent },
+  { path: 'iniciar', component: IniciarComponent },
   { path: '', component: PrincipalComponent },
 ];
 

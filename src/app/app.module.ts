@@ -1,4 +1,4 @@
-import { Input, NgModule, isDevMode } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,11 +23,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ChipModule } from 'primeng/chip';
 import { TagModule } from 'primeng/tag';
 import { AnimateModule } from 'primeng/animate';
-import { Checkbox, CheckboxModule } from 'primeng/checkbox';
+import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConocenosComponent } from './components/conocenos/conocenos.component';
 
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { VideoPipe } from './video.pipe';
 import { DudasComponent } from './components/dudas/dudas.component';
@@ -56,6 +55,7 @@ import { OtrosComponent } from './components/otros/otros.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { CommonModule } from '@angular/common';
 import { MiembrosComponent } from './components/miembros/miembros.component';
+import { IniciarComponent } from './components/iniciar/iniciar.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +75,7 @@ import { MiembrosComponent } from './components/miembros/miembros.component';
     ContactanosComponent,
     OtrosComponent,
     MiembrosComponent,
+    IniciarComponent,
   ],
   imports: [
     BrowserModule,
