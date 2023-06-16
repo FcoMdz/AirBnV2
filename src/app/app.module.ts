@@ -49,6 +49,7 @@ import { ContactanosComponent } from './components/contactanos/contactanos.compo
 import { OtrosComponent } from './components/otros/otros.component';
 
 import { QRCodeModule } from 'angularx-qrcode';
+import { IniciarComponent } from './components/iniciar/iniciar.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     CatalogoComponent,
     InversionesComponent,
     ContactanosComponent,
-    OtrosComponent
+    OtrosComponent,
+    IniciarComponent
   ],
   imports: [
     BrowserModule,

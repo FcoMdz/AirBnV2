@@ -13,7 +13,7 @@ import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { InversionesComponent } from './components/inversiones/inversiones.component';
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
 import { OtrosComponent } from './components/otros/otros.component';
-
+import { IniciarComponent } from './components/iniciar/iniciar.component';
 
 
 const routes: Routes = [
@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: 'home', component: PrincipalComponent },
   { path: 'comoUsar', component: ComoUsarComponent },
   { path: 'otro', component:  OtrosComponent},
+  { path: 'iniciar', component:  IniciarComponent},
   {path: 'catalogo', component: CatalogoComponent},
   {path: 'contactanos', component: ContactanosComponent},
   { path: '', component: PrincipalComponent }
