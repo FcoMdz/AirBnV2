@@ -74,7 +74,6 @@ import { QRCodeModule } from 'angularx-qrcode';
     BrowserAnimationsModule,
     QRCodeModule,
     AppRoutingModule,
-    FormsModule,
     SliderModule,
     CalendarModule,
     InputNumberModule,
