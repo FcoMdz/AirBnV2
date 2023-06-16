@@ -130,6 +130,25 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
+
+            <div class="qrcodeImage">
+              <qrcode
+                [qrdata]="valor"
+                [allowEmptyString]="true"
+                [alt]="'A custom alt attribute'"
+                [ariaLabel]="'QR Code image with the following content...'"
+                [cssClass]="'center'"
+                [colorDark]="'#000000ff'"
+                [colorLight]="'#b5b1b4'"
+                [elementType]="'img'"
+                [errorCorrectionLevel]="'M'"
+                [margin]="4"
+                [scale]="1"
+                [title]="'A custom title attribute'"
+                [width]="300"
+              ></qrcode>
+            </div>
+            
             <!--<img class="triple7" src="https://img.blogs.es/vizzagency/wp-content/uploads/2022/09/edit-4-3.jpg" alt="" srcset="">-->
           </div>
         </div>

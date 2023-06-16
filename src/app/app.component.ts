@@ -80,10 +80,11 @@ export class AppComponent implements OnInit{
             }
           });
         }
-      }else if(btnRegistro && btnCerrar){
+      }else if(btnRegistro && btnCerrar && btnReservas){
         btnRegistro.innerHTML = '<i class="fa-solid fa-user"></i> Iniciar Sesión';
         btnRegistro.removeAttribute("disabled");
         btnCerrar.setAttribute("disabled", "true");
+        btnReservas.setAttribute("disabled", "true");
         this.usuarioAdmin = false;
       }
     });

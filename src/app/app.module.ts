@@ -48,6 +48,8 @@ import { SendmailService } from './services/sendmail.service';
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
 import { OtrosComponent } from './components/otros/otros.component';
 
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +72,7 @@ import { OtrosComponent } from './components/otros/otros.component';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    QRCodeModule,
     AppRoutingModule,
     FormsModule,
     SliderModule,

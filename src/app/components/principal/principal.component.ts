@@ -30,6 +30,10 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class PrincipalComponent implements OnInit {
 
+  num = Math.floor(Math.random() * 5);
+  propiedad = ["Habitación Sur 309", "Casa Norte 404", "Edificio Sur 101", "Apartamento Este 777", "Terreno Oeste 911"];
+  valor: string = this.propiedad[this.num];
+
   link: string="AMWvGHsD4rA";
   casas:Casa [];
   mostrar:Casa [] = [];
