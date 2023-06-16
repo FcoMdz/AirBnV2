@@ -35,12 +35,17 @@ import { ReservacionesComponent } from './components/reservaciones/reservaciones
 import { SkinsComponent } from './components/skins/skins.component';
 
 //Firebase
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { provideStorage,getStorage } from '@angular/fire/storage';
+import {
+  provideAnalytics,
+  getAnalytics,
+  ScreenTrackingService,
+  UserTrackingService,
+} from '@angular/fire/analytics';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { InversionesComponent } from './components/inversiones/inversiones.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -49,6 +54,8 @@ import { ContactanosComponent } from './components/contactanos/contactanos.compo
 import { OtrosComponent } from './components/otros/otros.component';
 
 import { QRCodeModule } from 'angularx-qrcode';
+import { CommonModule } from '@angular/common';
+import { MiembrosComponent } from './components/miembros/miembros.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +73,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     CatalogoComponent,
     InversionesComponent,
     ContactanosComponent,
-    OtrosComponent
+    OtrosComponent,
+    MiembrosComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +84,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     AppRoutingModule,
     SliderModule,
     CalendarModule,
+    CommonModule,
     InputNumberModule,
     ChipModule,
     TagModule,
@@ -96,10 +105,16 @@ import { QRCodeModule } from 'angularx-qrcode';
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
-  providers: [CasasService, ScreenTrackingService, UserTrackingService, SendmailService, InversionesComponent],
-  bootstrap: [AppComponent]
+  providers: [
+    CasasService,
+    ScreenTrackingService,
+    UserTrackingService,
+    SendmailService,
+    InversionesComponent,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

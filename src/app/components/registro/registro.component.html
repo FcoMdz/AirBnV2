@@ -42,14 +42,14 @@
             <label class="form-label">Número de teléfono</label>
             <input type="text" class="form-control" formControlName="numberphone"
               placeholder="Ingresa tu número de teléfono">
-              <div class="alert alert-danger mt-2" [hidden]="numberphone?.pristine || numberphone?.valid">
-                <span *ngIf="numberphone?.errors?.['required']">
-                  El telefono es requerido
-                </span>
-                <span *ngIf="numberphone?.errors?.['wrongNumber']">
-                  Introduzca el numero en el formato: [+][Codigo del país][Número de telefono]
-                </span>
-              </div>
+            <div class="alert alert-danger mt-2" [hidden]="numberphone?.pristine || numberphone?.valid">
+              <span *ngIf="numberphone?.errors?.['required']">
+                El telefono es requerido
+              </span>
+              <span *ngIf="numberphone?.errors?.['wrongNumber']">
+                Introduzca el numero en el formato: [+][Codigo del país][Número de telefono]
+              </span>
+            </div>
           </div>
         </div>
         <div id="iniciowphone" [ngClass]="phone.invalid ? 'deshabilitado':'habilitado'" class="button">

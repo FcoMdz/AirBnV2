@@ -13,29 +13,29 @@ import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { InversionesComponent } from './components/inversiones/inversiones.component';
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
 import { OtrosComponent } from './components/otros/otros.component';
-
-
+import { MiembrosComponent } from './components/miembros/miembros.component';
 
 const routes: Routes = [
-  { path: 'busqueda/:termino', component: BusquedaComponent},
-  { path: 'busqueda', component: BusquedaComponent},
-  { path: 'registro',  component: RegistroComponent},
-  { path: 'casa/:casa', component: CasaComponent},
+  { path: 'busqueda/:termino', component: BusquedaComponent },
+  { path: 'busqueda', component: BusquedaComponent },
+  { path: 'registro', component: RegistroComponent },
+  { path: 'casa/:casa', component: CasaComponent },
   { path: 'inversiones', component: InversionesComponent },
-  { path: 'conocenos', component: ConocenosComponent},
-  { path: 'dudas', component: DudasComponent},
-  { path: 'reservaciones', component: ReservacionesComponent},
+  { path: 'conocenos', component: ConocenosComponent },
+  { path: 'dudas', component: DudasComponent },
+  { path: 'reservaciones', component: ReservacionesComponent },
   { path: 'skins', component: SkinsComponent },
   { path: 'home', component: PrincipalComponent },
   { path: 'comoUsar', component: ComoUsarComponent },
-  { path: 'otro', component:  OtrosComponent},
-  {path: 'catalogo', component: CatalogoComponent},
-  {path: 'contactanos', component: ContactanosComponent},
-  { path: '', component: PrincipalComponent }
+  { path: 'otro', component: OtrosComponent },
+  { path: 'catalogo', component: CatalogoComponent },
+  { path: 'contactanos', component: ContactanosComponent },
+  { path: 'miembros', component: MiembrosComponent },
+  { path: '', component: PrincipalComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
