@@ -94,3 +94,16 @@ img .triple7, .logo{
 .t-shadow {
  text-shadow: 4px 4px #2f203e;
 }
+
+/* The div container */
+.qrcodeImage {
+  display: flex;
+  flex: 1;
+}
+
+/* Add custom styles here */
+.center {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}

@@ -46,6 +46,9 @@ import { InversionesComponent } from './components/inversiones/inversiones.compo
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { SendmailService } from './services/sendmail.service';
 import { ContactanosComponent } from './components/contactanos/contactanos.component';
+import { OtrosComponent } from './components/otros/otros.component';
+
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -62,12 +65,14 @@ import { ContactanosComponent } from './components/contactanos/contactanos.compo
     SkinsComponent,
     CatalogoComponent,
     InversionesComponent,
-    ContactanosComponent
+    ContactanosComponent,
+    OtrosComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    QRCodeModule,
     AppRoutingModule,
     FormsModule,
     SliderModule,
