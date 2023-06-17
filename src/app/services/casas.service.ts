@@ -1,14 +1,23 @@
 import { Injectable } from '@angular/core';
 import { getFirestore, getDocs, getDoc, Firestore, collection, query, where, setDoc, CollectionReference, doc, addDoc, collectionGroup, deleteDoc } from '@angular/fire/firestore';
 import * as numeral from 'numeral';
-
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class CasasService {
 
+  //urlBase:string = "https://api-cvwcbtm6xa-uc.a.run.app";
+  urlBase:string = "http://localhost:3000";
   db:Firestore = getFirestore();
   collection:CollectionReference = collection(this.db,'casas');
+
+  constructor(private httpClient:HttpClient) { }
+
+  getJSON(url: string) {
+    return this.httpClient.get(this.urlBase+url).toPromise();
+  }
+
   async consultaFechasCasa(idCasa:number){
     let referencia = collection(this.collection, idCasa.toString(), 'apartado');
     let apartados = await getDocs(referencia);
@@ -39,8 +48,12 @@ export class CasasService {
   }
 
   async consultaApartadosCasas(){
-    var reservaciones:[any[]] = [[]];
-    for (let i = 0; i < this.casas.length; i++) {
+    var reservaciones:any[] = [];
+    await this.getJSON('/apartados').then((apartados:any) => {
+      reservaciones = apartados;
+    });
+    return reservaciones;
+    /*for (let i = 0; i < this.casas.length; i++) {
       const element = this.casas[i];
       reservaciones[(element.id-1)] = [];
       let referencia = collection(this.collection, element.id.toString(), 'apartado');
@@ -57,8 +70,7 @@ export class CasasService {
         reservacion["idDocumento"] = document.id;
         reservaciones[(element.id-1)][j++] = reservacion;
       });
-    }
-    return reservaciones;
+    }*/
   }
 
   async ingresarFechasCasas(idCasa:number, fechaInicio:Date, fechaFinal:Date, uid:string, cantPersonas:number, precio:number){
@@ -238,9 +250,6 @@ export class CasasService {
       ubicacion: {name: "Planicie", code: "pla"}
      },
   ];
-  constructor() { }
-
-
 }
 export interface Casa {
   id:number;

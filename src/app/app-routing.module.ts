@@ -15,6 +15,7 @@ import { ContactanosComponent } from './components/contactanos/contactanos.compo
 import { OtrosComponent } from './components/otros/otros.component';
 import { MiembrosComponent } from './components/miembros/miembros.component';
 import { IniciarComponent } from './components/iniciar/iniciar.component';
+import { GraficasComponent } from './components/graficas/graficas.component';
 
 const routes: Routes = [
   { path: 'busqueda/:termino', component: BusquedaComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'catalogo', component: CatalogoComponent },
   { path: 'contactanos', component: ContactanosComponent },
   { path: 'miembros', component: MiembrosComponent },
+  { path: 'graficas', component: GraficasComponent },
   { path: 'iniciar', component: IniciarComponent },
   { path: '', component: PrincipalComponent },
 ];

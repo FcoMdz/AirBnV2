@@ -24,29 +24,27 @@
                 </tr>
               </thead>
               <tbody>
-                  <ng-container *ngFor="let casa of data">
-                    <ng-container *ngFor="let info of casa">
-                      <tr class="table-secondary " *ngIf="info.uid==auth.currentUser?.uid || currentUserAdmin()">
-                        <td><img src="assets/casas/casa{{info.idCasa}}/casa{{info.idCasa}}.jpg" class="img-fluid rounded" style="max-height: 200px;" alt="Casa{{info.idCasa}}"></td>
-                        <td>{{info.infoUsuario.nombre}}</td>
-                        <td>{{info.cantPersonas}}</td>
-                        <td>{{info.fechaInicioFormato}}</td>
-                        <td>{{info.fechaFinalFormato}}</td>
-                        <td>${{info.precioFormato}}</td>
-                        <ng-container *ngIf="info.uid==auth.currentUser.uid; else otroUsuario">
-                          <ng-container *ngIf="fechaMayor(info.fechaInicio); else eliminar">
-                            <td><i class="fa-solid fa-circle-info fa-2xl" style="cursor:pointer" (click)="fechaMayorInfo()"></i></td>
-                          </ng-container>
-                          <ng-template #eliminar>
-                            <td><i class="fa-solid fa-rectangle-xmark fa-2xl" style="cursor:pointer;" (click)="eliminarReservacion(info.idCasa, info.idDocumento)"></i></td>
-                          </ng-template>
+                  <ng-container *ngFor="let info of data">
+                    <tr class="table-secondary " *ngIf="info.uid==auth.currentUser?.uid || currentUserAdmin()">
+                      <td><img src="assets/casas/casa{{info.idCasa}}/casa{{info.idCasa}}.jpg" class="img-fluid rounded" style="max-height: 200px;" alt="Casa{{info.idCasa}}"></td>
+                      <td>{{info.infoUsuario.nombre}}</td>
+                      <td>{{info.cantPersonas}}</td>
+                      <td>{{info.fechaInicioFormato}}</td>
+                      <td>{{info.fechaFinalFormato}}</td>
+                      <td>${{info.precioFormato}}</td>
+                      <ng-container *ngIf="info.uid==auth.currentUser.uid; else otroUsuario">
+                        <ng-container *ngIf="fechaMayor(info.fechaInicio); else eliminar">
+                          <td><i class="fa-solid fa-circle-info fa-2xl" style="cursor:pointer" (click)="fechaMayorInfo()"></i></td>
                         </ng-container>
-                        <ng-template #otroUsuario>
-                          <td><i class="fa-solid fa-circle-info fa-2xl" style="cursor:pointer" (click)="otroUsuarioInfo(info.infoUsuario)"></i></td>
+                        <ng-template #eliminar>
+                          <td><i class="fa-solid fa-rectangle-xmark fa-2xl" style="cursor:pointer;" (click)="eliminarReservacion(info.idCasa, info.idDocumento)"></i></td>
                         </ng-template>
+                      </ng-container>
+                      <ng-template #otroUsuario>
+                        <td><i class="fa-solid fa-circle-info fa-2xl" style="cursor:pointer" (click)="otroUsuarioInfo(info.infoUsuario)"></i></td>
+                      </ng-template>
 
-                      </tr>
-                    </ng-container>
+                    </tr>
                   </ng-container>
               </tbody>
           </table>

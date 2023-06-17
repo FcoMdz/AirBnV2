@@ -56,6 +56,9 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { CommonModule } from '@angular/common';
 import { MiembrosComponent } from './components/miembros/miembros.component';
 import { IniciarComponent } from './components/iniciar/iniciar.component';
+import { GraficasComponent } from './components/graficas/graficas.component';
+import { UsuariosService } from './services/usuarios.service';
+import { ConsultaService } from './services/consulta.service';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,7 @@ import { IniciarComponent } from './components/iniciar/iniciar.component';
     OtrosComponent,
     MiembrosComponent,
     IniciarComponent,
+    GraficasComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,7 +118,8 @@ import { IniciarComponent } from './components/iniciar/iniciar.component';
     ScreenTrackingService,
     UserTrackingService,
     SendmailService,
-    InversionesComponent,
+    UsuariosService,
+    ConsultaService
   ],
   bootstrap: [AppComponent],
 })

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InversionesService } from 'src/app/services/inversiones.service';
+import { ConsultaService } from 'src/app/services/consulta.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-inversiones',
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 export class InversionesComponent {
   inversionesData: any[] = [];
   modal:any = Swal;
-  constructor(private inversionesService: InversionesService) {}
+  constructor(private consultasService: ConsultaService) {}
 
   ngOnInit() {
     this.getInversionesData();
@@ -24,7 +24,7 @@ export class InversionesComponent {
       },
       allowOutsideClick: false
     });
-    this.inversionesService.getJSON('/inversiones').subscribe(
+    this.consultasService.getJSON('/inversiones').then(
       (data: any) => {
         this.inversionesData = data.members;
         this.modal.close();
