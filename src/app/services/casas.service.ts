@@ -53,24 +53,6 @@ export class CasasService {
       reservaciones = apartados;
     });
     return reservaciones;
-    /*for (let i = 0; i < this.casas.length; i++) {
-      const element = this.casas[i];
-      reservaciones[(element.id-1)] = [];
-      let referencia = collection(this.collection, element.id.toString(), 'apartado');
-      let apartados = await getDocs(referencia);
-      var j = 0;
-      apartados.forEach(async (document)=>{
-        var reservacion = document.data();
-        let usuario = doc(this.db, 'usuarios', reservacion['uid']);
-        let infoUsuario = await getDoc(usuario);
-        reservacion["infoUsuario"] = infoUsuario.data();
-        reservacion["fechaInicioFormato"] = new Date(reservacion['fechaInicio']).toLocaleDateString();
-        reservacion["fechaFinalFormato"] = new Date(reservacion['fechaFinal']).toLocaleDateString();
-        reservacion["precioFormato"] = numeral(reservacion['precio']).format('0,0.00');
-        reservacion["idDocumento"] = document.id;
-        reservaciones[(element.id-1)][j++] = reservacion;
-      });
-    }*/
   }
 
   async ingresarFechasCasas(idCasa:number, fechaInicio:Date, fechaFinal:Date, uid:string, cantPersonas:number, precio:number){

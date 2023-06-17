@@ -41,6 +41,6 @@ export class ContactanosComponent implements OnInit {
       correo: this.correo.value,
       desarrollo: this.sugerencia.value
     }
-    this.sendmail.alta(this.sendmail.urlBase + '/contacto', body);
+    this.sendmail.alta(this.sendmail.urlBase +'/contacto', body);
   }
 }
