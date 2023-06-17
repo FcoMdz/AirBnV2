@@ -9,6 +9,7 @@ import { Accessibility } from 'accessibility/dist/main';
 })
 export class AppComponent implements OnInit{
   title = 'AirbnV';
+  nombreUsr!:string|null;
   //Busqueda
   constructor(private primengConfig: PrimeNGConfig){
 
@@ -62,6 +63,9 @@ export class AppComponent implements OnInit{
     });
     opt.disableUnsupportedModules();
 
+  }
+  mandarUsr(usr:string|null){
+      this.nombreUsr=usr;
   }
 }
 

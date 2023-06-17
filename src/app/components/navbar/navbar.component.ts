@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Auth, getAuth, onAuthStateChanged, signOut } from '@angular/fire/auth';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import Swal from 'sweetalert2';
@@ -11,11 +11,9 @@ import Swal from 'sweetalert2';
 export class NavbarComponent {
   termino:HTMLInputElement | undefined;
   busqueda:string = "";
-
   usuarioAdmin:boolean = false;
-
   auth:Auth = getAuth();
-
+  @Output() nombreUsr = new EventEmitter<string|null>();
   constructor(private usuariosService:UsuariosService){
 
   }
@@ -39,7 +37,9 @@ export class NavbarComponent {
   ngOnInit(): void {
     //Busqueda
     this.initBusqueda();
+    //manejo de usuarios
     this.initUserManage();
+
   }
 
   initBusqueda():void{
@@ -60,8 +60,10 @@ export class NavbarComponent {
     let btnReservas = document.getElementById("reservar");
     let btnGraficas = document.getElementById("graficas");
     onAuthStateChanged(this.auth, (user) => {
-      if(user && btnRegistro && btnCerrar && btnReservas){
+      if(user && btnRegistro && btnCerrar && btnReservas && this.auth.currentUser){
         btnRegistro.innerHTML = "Bienvenido, " + this.auth.currentUser?.displayName;
+        //output
+        if(this.auth.currentUser.displayName) this.nombreUsr.emit(this.auth.currentUser.displayName);
         btnRegistro.setAttribute("disabled", "true");
         btnCerrar.removeAttribute("disabled");
         btnReservas.removeAttribute("disabled");
@@ -78,6 +80,7 @@ export class NavbarComponent {
         btnRegistro.removeAttribute("disabled");
         btnCerrar.setAttribute("disabled", "true");
         btnReservas.setAttribute("disabled", "true");
+        this.nombreUsr.emit(null);
         this.usuarioAdmin = false;
       }
     });
