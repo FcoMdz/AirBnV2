@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
 })
 export class SendmailService {
   urlBase:string = "https://api-cvwcbtm6xa-uc.a.run.app";
-  //Cambiar en produccion el hosting! (Revisar otros servicios)
-  //urlBase: string = 'http://localhost:3000';
   constructor(private httpClient: HttpClient) {
 
   }

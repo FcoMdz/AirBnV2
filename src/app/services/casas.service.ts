@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CasasService {
 
-  //urlBase:string = "https://api-cvwcbtm6xa-uc.a.run.app";
-  urlBase:string = "http://localhost:3000";
+  urlBase:string = "https://api-cvwcbtm6xa-uc.a.run.app";
+  //urlBase:string = "http://localhost:3000";
   db:Firestore = getFirestore();
   collection:CollectionReference = collection(this.db,'casas');
 

@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ConsultaService {
 
-   //urlBase:string = "https://api-cvwcbtm6xa-uc.a.run.app";
-   urlBase:string = "http://localhost:3000";
+   urlBase:string = "https://api-cvwcbtm6xa-uc.a.run.app";
+   //urlBase:string = "http://localhost:3000";
    constructor(public httpClient: HttpClient) {}
 
    getJSON(url: string) {
