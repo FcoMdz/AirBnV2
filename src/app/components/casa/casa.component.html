@@ -62,6 +62,25 @@
       (leafletMapReady)="onMapReady($event)"
       (leafletMapZoomEnd)="onMapZoomEnd($event)">
     </div>-->
+    <div id="codigoQR">
+      <h4>¡Guarda tu reserva en el calendario!</h4>
+      <qrcode
+        [qrdata]="valor"
+        [allowEmptyString]="true"
+        [alt]="'A custom alt attribute'"
+        [ariaLabel]="'QR Code image with the following content...'"
+        [cssClass]="'center'"
+        [colorDark]="'#000000ff'"
+        [colorLight]="'#b5b1b4'"
+        [elementType]="'img'"
+        [errorCorrectionLevel]="'M'"
+        [margin]="4"
+        [scale]="1"
+        [title]="'A custom title attribute'"
+        [width]="300"
+      ></qrcode>
+    </div>
+
   <div class="card-body">
     <div class="row">
       <div class="col-12 col-sm-10 offset-sm-1 offset-lg-0 col-lg-7 col-xl-5 card mb-2 mb-lg-0">

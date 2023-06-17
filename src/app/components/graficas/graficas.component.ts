@@ -62,7 +62,6 @@ export class GraficasComponent implements OnInit {
         colors.push('#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6));
       }
     });
-    console.log(this.data);
     this.canva = <HTMLCanvasElement>document.getElementById('myChart')!;
     var ctx = this.canva.getContext('2d');
     if (this.canva && ctx) {

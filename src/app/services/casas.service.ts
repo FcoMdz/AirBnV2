@@ -83,7 +83,8 @@ export class CasasService {
       precio: precio
     }
     let referencia = collection(this.collection, idCasa.toString(), 'apartado');
-    await addDoc(referencia, data);
+    let docRef = await addDoc(referencia, data);
+    return docRef.id;
   }
 
   async darBajaFecha(idCasa:string,idDocumento:string){

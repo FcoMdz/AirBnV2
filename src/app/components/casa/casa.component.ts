@@ -8,6 +8,8 @@ import * as L from 'leaflet';
 import { Auth, getAuth } from '@angular/fire/auth';
 import { SendmailService } from 'src/app/services/sendmail.service';
 import { formatDate } from '@angular/common';
+import { ConsultaService } from 'src/app/services/consulta.service';
+import * as ics from 'ics';
 
 @Component({
   selector: 'app-casa',
@@ -35,8 +37,9 @@ export class CasaComponent implements OnInit, AfterViewInit {
   fechaActual = new Date();
   fecha:string = "";
   diasdesh:Date[]=[];
-
+  modal:any = Swal;
   auth:Auth = getAuth();
+  valor!:string;
 
   ///////////////////Geras mapa
   private mapa!:L.Map;
@@ -56,7 +59,7 @@ export class CasaComponent implements OnInit, AfterViewInit {
 
   ///////////////////Fin Geras mapa
 
-  constructor(private casaService:CasasService, private rutaActiva:ActivatedRoute, private sendmail:SendmailService){
+  constructor(private casaService:CasasService, private rutaActiva:ActivatedRoute, private sendmail:SendmailService, private consultasService:ConsultaService){
     this.casaService.casas.forEach(casita => {
       if(casita.nombre === this.rutaActiva.snapshot.params['casa']){
         this.casa = {
@@ -139,6 +142,14 @@ export class CasaComponent implements OnInit, AfterViewInit {
   }
 
   async registrarReserva():Promise<void>{
+    this.modal.fire({
+      title: 'Reservaciones',
+      html: 'Se está guardando la reservación',
+      didOpen: ()=>{
+        Swal.showLoading();
+      },
+      allowOutsideClick: false
+    });
     //Aqui se obtienen las fechas que selecciono el usuario
     if(this.auth.currentUser){
       let fechaSeleccionadaInicio:Date;
@@ -165,10 +176,35 @@ export class CasaComponent implements OnInit, AfterViewInit {
             this.auth.currentUser.uid,
             this.reserva.value.CantidadPersona,
             this.casa.precio
-          ).then(()=>{
-            Swal.fire('Apartado Confirmado','Se ha registrado su apartado','success');
-            this.actualizarFechasDisponibles();
-            this.correo(fechaSeleccionadaInicio ,fechaSeleccionadaFinal);
+          ).then((docRef)=>{
+            var body:any = {
+              docRef: docRef,
+              casaId: this.casa.id,
+              nombreCasa: this.casa.nombre
+            }
+            this.consultasService.alta("/getApartado",body).then((data:any) => {
+              this.modal.close();
+              //Gerar QR y mostrarlo en el Swal
+              let date1:Date = new Date(data.fechaInicio);
+              let date2:Date = new Date(data.fechaFinal);
+              var evento:ics.EventAttributes = {
+                title: data.resumen,
+                description: this.casa.descripcion,
+                location: data.resumen,
+                start: [date1.getFullYear(), date1.getMonth()+1, date1.getDate()+1],
+                end: [date2.getFullYear(), date2.getMonth()+1, date2.getDate()+1],
+              };
+              const { error, value } = ics.createEvent(evento);
+              this.valor = value!;
+              Swal.fire({
+                title: 'Apartado Confirmado',
+                html: `Se ha registrado su apartado :D`,
+                icon: 'success'
+              });
+
+              this.actualizarFechasDisponibles();
+              this.correo(fechaSeleccionadaInicio ,fechaSeleccionadaFinal);
+            })
           }).catch((error)=>{
             Swal.fire('Error','Ha ocurrido un error' + error,'error');
           });

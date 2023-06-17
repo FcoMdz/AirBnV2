@@ -92,7 +92,6 @@ export class BusquedaComponent implements OnInit {
       this.filtrarResultadosAsync().then((res)=>{
         this.resultadosFiltrados = res;
       }).catch((error)=>{
-        console.log(error);
       });
     });
   }

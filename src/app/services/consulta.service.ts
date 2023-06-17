@@ -12,6 +12,8 @@ export class ConsultaService {
    getJSON(url: string) {
      return this.httpClient.get(this.urlBase+url).toPromise();
    }
-
+   alta(url: string, body: any) {
+    return this.httpClient.post(this.urlBase+url, body).toPromise();
+  }
 
 }
