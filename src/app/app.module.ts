@@ -59,6 +59,8 @@ import { IniciarComponent } from './components/iniciar/iniciar.component';
 import { GraficasComponent } from './components/graficas/graficas.component';
 import { UsuariosService } from './services/usuarios.service';
 import { ConsultaService } from './services/consulta.service';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,8 @@ import { ConsultaService } from './services/consulta.service';
     MiembrosComponent,
     IniciarComponent,
     GraficasComponent,
+    NavbarComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
