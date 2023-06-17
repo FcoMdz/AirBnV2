@@ -55,11 +55,9 @@
                 routerLink="reservaciones">Reservaciones</button>
             </li>
             <ng-container *ngIf="usuarioAdmin">
-              <button id="graficas" class="dropdown-item" routerLink="registro"
-                (click)="cerrarSesion()">Graficas</button>
-            </ng-container>
-            <ng-container *ngIf="usuarioAdmin">
+
               <button id="graficas" class="dropdown-item" routerLink="registro" routerLink="miembros">Miembros</button>
+              <button id="graficas" class="dropdown-item" routerLink="registro" routerLink="graficas">Graficas</button>
             </ng-container>
             <li>
               <button id="cerrarSesion" class="dropdown-item" disabled routerLink="registro"
